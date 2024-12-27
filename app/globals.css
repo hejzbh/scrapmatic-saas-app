@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* Light theme colors */
+  :root {
+    --btn-primary: #6155c8;
+  }
+
+  /* Dark theme colors */
+  :root[class~="dark"] {
+    --btn-primary: #6155c8;
+  }
+}
+
+html {
+  font-size: 13px;
+}
+
+@media only screen and (min-width: 1000px) {
+  html {
+    font-size: 14.3px;
+  }
+}
+
+body {
+  background: #030c15;
+}
+
+.heading-clip {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-image: radial-gradient(circle at 0 0, #e6e0fc, #e6e0fc3d);
+  background-clip: text;
+}
