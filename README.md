@@ -14,3 +14,7 @@ With its intuitive flow builder and customizable AI actions, web automation beco
 ## 🛠 Skills
 
 JavaScript, React (Next.JS), TypeScript, React-Flow, Prisma, ReactQuery, Clerk & more...
+
+##
+
+![Screenshot_1](https://github.com/user-attachments/assets/57a8db77-63c4-4308-97e2-d7a3ca9f06ce)
