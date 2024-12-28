@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "@/features/home/components/Header";
-import Hero from "@/features/home/components/Hero";
+import Header from "@/features/(home)/components/Header";
+import Hero from "@/features/(home)/components/Hero";
 
 const HomePage = async () => {
   return (

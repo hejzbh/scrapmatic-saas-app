@@ -1,11 +1,13 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import Text from "./Text";
 
 type ButtonProps = {
   className?: string;
   variant: "primary" | "secondary";
   children: React.ReactNode;
+  href?: string;
   dataTitle?: string;
   ref?: any; // eslint-disable-line
   onClick?: () => void;
@@ -27,21 +29,25 @@ const Button = ({
   onClick = () => {},
   dataTitle = "Click",
   ref,
+  href,
 }: ButtonProps) => {
+  const Element = href ? Link : "button";
+
   return (
-    <button
+    <Element
       ref={ref}
+      href={href + ""}
       onClick={() => {
         onClick();
       }}
       disabled={disabled}
       title={dataTitle}
-      className={`py-3 px-7 disabled:opacity-70 rounded-md transition-all active:opacity-60 duration-200 ease-in-out hover:md:opacity-90 relative overflow-hidden  min-w-40  shadow-2xl  md:before:absolute md:before:left-0 md:before:top-0 md:before:h-full md:before:w-0 md:before:duration-300 md:after:absolute md:after:right-0 md:after:top-0 md:after:h-full md:after:w-0 md:after:duration-300  hover:md:before:w-2/4  hover:md:after:w-2/4 md:after:z-[-1] md:before:z-[-1]  ${variantClasses[variant]} ${className}`}
+      className={`block max-w-fit py-3 px-7 disabled:opacity-70 rounded-md transition-all active:opacity-60 duration-200 ease-in-out hover:md:opacity-90 relative overflow-hidden  min-w-40  shadow-2xl  md:before:absolute md:before:left-0 md:before:top-0 md:before:h-full md:before:w-0 md:before:duration-300 md:after:absolute md:after:right-0 md:after:top-0 md:after:h-full md:after:w-0 md:after:duration-300  hover:md:before:w-2/4  hover:md:after:w-2/4 md:after:z-[-1] md:before:z-[-1]  ${variantClasses[variant]} ${className}`}
     >
       <Text size="md" withoutDefaultClass>
         {children}
       </Text>
-    </button>
+    </Element>
   );
 };
 

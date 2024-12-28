@@ -1,6 +1,6 @@
+import "./index.css";
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
-import "./globals.css";
 
 const font = Inter_Tight({
   subsets: ["latin", "latin-ext"],

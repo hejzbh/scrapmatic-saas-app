@@ -5,12 +5,28 @@
 @layer base {
   /* Light theme colors */
   :root {
+    /* BTN */
     --btn-primary: #6155c8;
+    /* BG */
+    --bg-sidebar:unset;
+    /* BORDER */
+    --border-primary:#5353552d;
+    /* TEXT */
+    --text-primary:red;
+    --text-secondary:#96A0AF;
   }
 
   /* Dark theme colors */
   :root[class~="dark"] {
+    /* BTN */
     --btn-primary: #6155c8;
+    /* BG */
+    --bg-sidebar:linear-gradient(145deg, #030c15, #081423, #0000);
+    /* BORDER */
+    --border-primary:#1F3445;
+    /* TEXT */
+    --text-primary:#fff;
+    --text-secondary:#96A0AF;
   }
 }
 
@@ -24,8 +40,8 @@ html {
   }
 }
 
-body {
-  background: #030c15;
+html.dark body {
+  background: linear-gradient(145deg, #000000 0%, #030c15 50%, #050f1b 100%);
 }
 
 .heading-clip {
