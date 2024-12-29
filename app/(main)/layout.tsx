@@ -5,9 +5,9 @@ import React from "react";
 function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen">
-      <Sidebar />
+      <Sidebar className="hidden lg:block" />
       <div className="flex flex-col flex-1 min-h-screen">
-        <Header />đ
+        <Header />
         <div className="overflow-auto">
           <main className="flex-1 container py-4">{children}</main>
         </div>

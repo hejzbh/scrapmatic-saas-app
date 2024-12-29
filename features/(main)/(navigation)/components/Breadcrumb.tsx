@@ -55,9 +55,7 @@ const Breadcrumb = ({ className = "" }: BreadcrumbProps) => {
             }`}
           >
             {" "}
-            <Text size="sm" withoutDefaultClass>
-              {link.name}
-            </Text>
+            <Text size="sm">{link.name}</Text>
           </Link>
         </li>
       ))}

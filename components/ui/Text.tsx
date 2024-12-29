@@ -29,7 +29,7 @@ const Text = ({
 
   return (
     <Element
-      className={`${!withoutDefaultClass && "text-white"} ${
+      className={`${!withoutDefaultClass && "text-secondary"} ${
         sizeClasses[size]
       } ${className}`}
     >

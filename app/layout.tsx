@@ -1,6 +1,7 @@
 import "./index.css";
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const font = Inter_Tight({
   subsets: ["latin", "latin-ext"],
@@ -19,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} antialiased`}>{children}</body>
+      <UserProvider>
+        <body className={`bg-bodyGradient ${font.className} antialiased`}>
+          {children}
+        </body>
+      </UserProvider>
     </html>
   );
 }

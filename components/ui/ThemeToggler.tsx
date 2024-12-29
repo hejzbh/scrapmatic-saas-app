@@ -9,13 +9,13 @@ const ThemeToggler = () => {
     <button
       title={`Change to ${theme === "dark" ? "light" : "dark"} theme`}
       onClick={toggleTheme}
-      className="p-2 rounded-full bg-primary/20 transition duration-300 hover:opacity-70"
+      className="w-10 h-10 flex  text-xl items-center bg-bgColors-secondary justify-center rounded-full transition duration-300 hover:opacity-70"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <FiSun size={20} className="text-yellow-500" />
+        <FiSun className="text-yellow-500" />
       ) : (
-        <FiMoon size={20} className="text-primary" />
+        <FiMoon className="text-primary" />
       )}
     </button>
   );

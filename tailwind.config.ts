@@ -22,16 +22,23 @@ export default {
         btnColors: {
           primary: "var(--btn-primary)",
         },
+        bgColors: {
+          primary: "var(--bg-primary)",
+          secondary: "var(--bg-secondary)",
+        },
         borderColors: {
           primary: "var(--border-primary)",
         },
         textColors: {
           primary: "var(--text-primary)",
           secondary: "var(--text-secondary)",
+          active: "var(--text-active)",
         },
       },
       backgroundImage: {
         sidebarGradient: "var(--bg-sidebar)",
+        appHeaderGradient: "var(--bg-sidebar)",
+        bodyGradient: "var(--bg-body)",
       },
     },
   },

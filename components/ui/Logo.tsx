@@ -15,6 +15,7 @@ const Logo = ({ className = "" }: LogoProps) => {
         width={180}
         height={150}
         alt="Logo"
+        className="w-full max-w-[140px] md:max-w-[170px]"
       />
     </Link>
   );
