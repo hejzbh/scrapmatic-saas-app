@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <UserProvider>
+      <UserProvider loginUrl="/api/auth/login" profileUrl="/api/auth/me">
         <body className={`bg-bodyGradient ${font.className} antialiased`}>
           {children}
         </body>

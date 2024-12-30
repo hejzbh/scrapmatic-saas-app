@@ -1,5 +1,5 @@
-import Header from "@/features/(main)/(navigation)/components/Header";
-import Sidebar from "@/features/(main)/(navigation)/components/Sidebar";
+import Header from "@/features/(app)/(navigation)/components/Header";
+import Sidebar from "@/features/(app)/(navigation)/components/Sidebar";
 import React from "react";
 
 function AppLayout({ children }: { children: React.ReactNode }) {

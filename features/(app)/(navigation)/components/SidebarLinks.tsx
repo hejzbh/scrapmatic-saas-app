@@ -4,7 +4,7 @@ import { routes } from "@/lib/routes";
 import Link from "next/link";
 import Text from "@/components/ui/Text";
 import { usePathname } from "next/navigation";
-import { navigationLinks } from "@/features/(main)/(navigation)/lib/navigationLinks";
+import { navigationLinks } from "@/features/(app)/(navigation)/lib/navigationLinks";
 
 type SidebarLinksProps = {
   className?: string;

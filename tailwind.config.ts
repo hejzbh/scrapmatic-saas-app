@@ -21,6 +21,7 @@ export default {
         primary: "#6155c8",
         btnColors: {
           primary: "var(--btn-primary)",
+          secondary: "var(--bg-secondary)",
         },
         bgColors: {
           primary: "var(--bg-primary)",
@@ -33,6 +34,7 @@ export default {
           primary: "var(--text-primary)",
           secondary: "var(--text-secondary)",
           active: "var(--text-active)",
+          hover: "#6155c8",
         },
       },
       backgroundImage: {

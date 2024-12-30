@@ -43,19 +43,21 @@ const Breadcrumb = ({ className = "" }: BreadcrumbProps) => {
 
   return (
     <ul className={`flex items-center ${className}`}>
-      {breadcrumbLinks?.map((link) => (
+      {breadcrumbLinks?.map((link, idx) => (
         <li key={link.href}>
           <Link
             title={link.name}
             href={link.href}
-            className={`block py-1 px-2  transition ${
+            className={`block py-1 px-2  transition ${idx === 0 && "pl-0"} ${
               link.isActive
                 ? "text-textColors-primary"
                 : "text-textColors-secondary hover:text-textColors-primary"
             }`}
           >
             {" "}
-            <Text size="sm">{link.name}</Text>
+            <Text withoutDefaultClass size="sm">
+              {link.name}
+            </Text>
           </Link>
         </li>
       ))}
