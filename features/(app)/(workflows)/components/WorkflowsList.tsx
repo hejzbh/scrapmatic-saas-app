@@ -16,7 +16,7 @@ export const WorkflowsList = async ({
 
   if (!workflows) return "Error";
 
-  // if (workflows.length < 1) return "No results";
+  console.log(workflows, pagination);
 
   return (
     <div className={`${className}`}>

@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import Text from "./Text";
+import { ModalType, useModals } from "@/hooks/use-modals";
 export type ButtonProps = {
   className?: string;
   variant: "primary" | "secondary";
@@ -11,6 +12,7 @@ export type ButtonProps = {
   ref?: any; // eslint-disable-line
   onClick?: () => void;
   disabled?: boolean;
+  modal?: ModalType;
 };
 
 const variantClasses = {
@@ -29,16 +31,23 @@ const Button = ({
   dataTitle = "Click",
   ref,
   href,
+  modal,
 }: ButtonProps) => {
+  const { openModal } = useModals();
+
   const Element = href ? Link : "button";
+
+  function handleClick() {
+    onClick();
+
+    if (modal) openModal(modal.name, modal.data);
+  }
 
   return (
     <Element
       ref={ref}
       href={href + ""}
-      onClick={() => {
-        onClick();
-      }}
+      onClick={handleClick}
       disabled={disabled}
       title={dataTitle}
       className={`block max-w-fit cursor-pointer py-3 px-7 disabled:!opacity-70 rounded-md transition-all active:opacity-60 duration-200 ease-in-out hover:md:opacity-80 relative overflow-hidden  shadow-md  md:before:absolute md:before:left-0 md:before:top-0 md:before:h-full md:before:w-0 md:before:duration-300 md:after:absolute md:after:right-0 md:after:top-0 md:after:h-full md:after:w-0 md:after:duration-300  hover:md:before:w-2/4  hover:md:after:w-2/4 md:after:z-[-1] md:before:z-[-1]  ${variantClasses[variant]} ${className}`}

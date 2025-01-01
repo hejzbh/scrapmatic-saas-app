@@ -2,7 +2,7 @@ import "./index.css";
 import type { Metadata } from "next";
 import { Inter_Tight } from "next/font/google";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-
+import ModalProvider from "@/components/providers/ModalProvider";
 const font = Inter_Tight({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700", "900"],
@@ -23,6 +23,7 @@ export default function RootLayout({
       <UserProvider loginUrl="/api/auth/login" profileUrl="/api/auth/me">
         <body className={`bg-bodyGradient ${font.className} antialiased`}>
           {children}
+          <ModalProvider />
         </body>
       </UserProvider>
     </html>

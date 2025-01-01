@@ -29,7 +29,7 @@ const Pagination = ({
 
   // Redirect to the last valid page if the current page is invalid
   useEffect(() => {
-    if (currentPage > maxPages) {
+    if (maxPages > 0 && currentPage > maxPages) {
       searchParams.page = maxPages;
       router.replace(`${pathname}?${objectToQs(searchParams)}`);
     }

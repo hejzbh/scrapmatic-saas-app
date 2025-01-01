@@ -27,6 +27,9 @@ async function WorkflowsPage({
           variant: "primary",
           className: "!p-3 md:!p-4",
           children: <RiAddLargeLine className="text-lg md:text-xl" />,
+          modal: {
+            name: "createWorkflow",
+          },
         }}
       />
       <Suspense fallback={<WorkflowsListSkeleton />}>
