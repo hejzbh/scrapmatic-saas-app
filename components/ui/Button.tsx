@@ -18,7 +18,7 @@ export type ButtonProps = {
 
 const variantClasses = {
   primary:
-    "bg-btnColors-primary text-white border-[1px] border-btnColors-primary hover:md:text-btnColors-primary hover:md:shadow-white hover:before:md:bg-white hover:md:after:bg-white disabled:hover:md:text-white disabled:hover:md:after:bg-btnColors-primary disabled:hover:md:before:bg-btnColors-primary",
+    "bg-btnColors-primary text-white border-[1px] border-btnColors-primary hover:md:text-btnColors-primary hover:md:shadow-white hover:before:md:bg-white hover:md:after:bg-white disabled:hover:md:text-white disabled:hover:md:before:bg-btnColors-primary disabled:hover:md:after:bg-btnColors-primary ",
   secondary:
     "bg-btnColors-secondary text-textColors-primary hover:text-textColors-hover",
 };
