@@ -9,7 +9,7 @@ interface FormFieldProps {
   handleFieldChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  value: any;
+  value: any; // eslint-disable-line
 }
 
 const FormField = ({
