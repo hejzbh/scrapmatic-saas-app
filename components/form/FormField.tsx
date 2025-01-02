@@ -13,7 +13,7 @@ interface FormFieldProps {
 }
 
 const FormField = ({
-  className = "",
+  className,
   field,
   error,
   handleFieldChange,
