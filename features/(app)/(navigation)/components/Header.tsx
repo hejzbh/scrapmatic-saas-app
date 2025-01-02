@@ -24,7 +24,7 @@ const Header = ({ className = "" }: HeaderProps) => {
           </HamburgerButton>
         </div>
       </div>
-      <Separator className="!bg-borderColors-primary" />
+      <Separator />
     </header>
   );
 };

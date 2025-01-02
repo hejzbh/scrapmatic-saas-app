@@ -13,7 +13,7 @@ const Sidebar = ({ className = "" }: SidebarProps) => {
       className={`min-w-[320px]  bg-sidebarGradient h-screen border-r-[1px] border-borderColors-primary  ${className}`}
     >
       <Logo className="p-5 h-[90px]" />
-      <Separator className="!bg-borderColors-primary" />
+      <Separator />
       <SidebarLinks className="my-4 pr-4" />
     </aside>
   );

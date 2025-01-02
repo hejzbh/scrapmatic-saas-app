@@ -14,7 +14,7 @@ const Header = ({ className = "" }: HeaderProps) => {
         <nav></nav>
         <div></div>
       </div>
-      <Separator />
+      <Separator className="!bg-[#1F3445]" />
     </header>
   );
 };

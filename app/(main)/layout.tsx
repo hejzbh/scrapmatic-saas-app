@@ -9,7 +9,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
       <div className="flex flex-col flex-1 min-h-screen">
         <Header />
         <div className="overflow-auto">
-          <main className="flex-1 container py-4">{children}</main>
+          <main className="flex-1 px-4 md:px-14 py-4">{children}</main>
         </div>
       </div>
     </div>

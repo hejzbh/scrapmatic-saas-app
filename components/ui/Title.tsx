@@ -19,7 +19,7 @@ const Title = ({
   className = "",
   variant = "h2",
   children,
-  size = "lg",
+  size = "md",
 }: TitleProps) => {
   const Element = variant;
 

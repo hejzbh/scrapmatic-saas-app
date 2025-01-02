@@ -27,3 +27,17 @@ export type PaginationObjectType = {
 export type PaginationSearchParams = {
   page: string;
 };
+
+export type FormFieldType = {
+  name: string;
+  placeholder?: string;
+  label: string;
+  required?: boolean;
+  type: "input" | "textarea" | "checkbox";
+  inputType?: "email" | "password";
+};
+
+export type WorkflowFormData = {
+  name: string;
+  description?: string;
+};

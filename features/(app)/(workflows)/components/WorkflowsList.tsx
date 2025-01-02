@@ -2,6 +2,7 @@ import React from "react";
 import getWorkflows from "../actions/getWorkflows";
 import Pagination from "@/components/Pagination";
 import { WorkflowsSearchParams } from "@/app/(main)/app/workflows/page";
+import NoResults from "@/components/ui/NoResults";
 
 type WorkflowsListProps = {
   className?: string;
@@ -16,7 +17,18 @@ export const WorkflowsList = async ({
 
   if (!workflows) return "Error";
 
-  console.log(workflows, pagination);
+  if (!workflows.length)
+    return (
+      <NoResults
+        title="No workflow created yet"
+        description="Click the button below to create your first workflow"
+        buttonProps={{
+          children: "Create your first workflow",
+          variant: "primary",
+          modal: { name: "createWorkflow" },
+        }}
+      />
+    );
 
   return (
     <div className={`${className}`}>

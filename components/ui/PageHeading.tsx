@@ -3,6 +3,7 @@ import Title from "@/components/ui/Title";
 import Text from "@/components/ui/Text";
 import Breadcrumb from "@/features/(app)/(navigation)/components/Breadcrumb";
 import Button, { ButtonProps } from "./Button";
+import Separator from "./Separator";
 
 type PageHeadingProps = {
   className?: string;
@@ -22,7 +23,7 @@ const PageHeading = ({
       <Breadcrumb className="flex lg:hidden" />
       <div className={buttonProps ? "flex items-center justify-between" : ""}>
         <div>
-          <Title size="md" variant="h1" className="mt-3 !text-primary">
+          <Title variant="h1" className="mt-3 !text-primary">
             {title}
           </Title>
           <Text size="md">{description}</Text>
@@ -30,6 +31,8 @@ const PageHeading = ({
 
         {buttonProps && <Button {...buttonProps} />}
       </div>
+
+      <Separator className="my-7 opacity-30" />
     </div>
   );
 };

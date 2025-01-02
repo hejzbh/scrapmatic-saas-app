@@ -2,7 +2,10 @@
 
 import React, { useEffect, useMemo } from "react";
 import { PaginationSearchParams } from "@/types";
-import { PAGINATION_PER_PAGE as PER_PAGE } from "@/lib/const";
+import {
+  PAGINATION_PER_PAGE,
+  PAGINATION_PER_PAGE as PER_PAGE,
+} from "@/lib/const";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 import { objectToQs } from "@/lib/utils";
@@ -52,7 +55,8 @@ const Pagination = ({
     router.push(`${pathname}?${objectToQs(searchParams)}`);
   };
 
-  if (count === 0) return null;
+  // Do not display unless necessary
+  if (count <= PAGINATION_PER_PAGE) return null;
 
   return (
     <div className={`flex items-center space-x-5 ${className}`}>

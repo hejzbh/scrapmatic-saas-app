@@ -21,8 +21,8 @@ model Workflow {
   name        String
   description String?
 
-  definition String
-  status     WorkflowStatus
+  definition WorkflowDefinitionEnum
+  status     WorkflowStatusEnum
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -32,8 +32,13 @@ model Workflow {
 }
 
 // Enums
-enum WorkflowStatus {
-  EMPTY
-  IN_PROGRESS
-  DONE
+enum WorkflowStatusEnum {
+  DRAFT
+  PUBLISHED
 }
+
+enum WorkflowDefinitionEnum {
+  TODO
+}
+
+
