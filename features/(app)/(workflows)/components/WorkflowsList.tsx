@@ -3,6 +3,7 @@ import getWorkflows from "../actions/getWorkflows";
 import Pagination from "@/components/Pagination";
 import { WorkflowsSearchParams } from "@/app/(main)/app/workflows/page";
 import NoResults from "@/components/ui/NoResults";
+import WorkflowCard from "./WorkflowCard";
 
 type WorkflowsListProps = {
   className?: string;
@@ -32,7 +33,18 @@ export const WorkflowsList = async ({
 
   return (
     <div className={`${className}`}>
-      <Pagination count={pagination.count} searchParams={searchParams} />
+      <ul className="grid gap-10 grid-cols-1 md:grid-cols-2 ">
+        {workflows?.map((workflow) => (
+          <li className="h-full" key={workflow.id}>
+            <WorkflowCard workflow={workflow} className="h-full" />
+          </li>
+        ))}
+      </ul>
+      <Pagination
+        className="mt-10 flex justify-center"
+        count={pagination.count}
+        searchParams={searchParams}
+      />
     </div>
   );
 };
@@ -43,9 +55,9 @@ export const WorkflowsListSkeleton = ({
   className?: string;
 }) => {
   return (
-    <ul className={`space-y-5 ${className}`}>
+    <ul className={`gap-10 grid grid-cols-1 md:grid-cols-2 ${className}`}>
       {Array.from({ length: 4 })?.map((_, idx) => (
-        <li key={idx} className="p-5 w-full bg-gray-400"></li>
+        <li key={idx} className="p-10 w-full bg-modalGradient rounded-3xl"></li>
       ))}
     </ul>
   );

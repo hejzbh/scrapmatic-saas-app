@@ -21,7 +21,7 @@ export default {
         primary: "#6155c8",
         btnColors: {
           primary: "var(--btn-primary)",
-          secondary: "var(--bg-secondary)",
+          secondary: "var(--btn-secondary)",
         },
         bgColors: {
           primary: "var(--bg-primary)",

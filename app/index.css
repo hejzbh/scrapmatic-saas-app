@@ -7,6 +7,7 @@
   :root {
     /* BTN */
     --btn-primary: #6155c8;
+    --btn-secondary: #3f6c68;
     /* BG */
     --bg-primary: white;
     --bg-secondary: #f8f7fa;
@@ -26,6 +27,7 @@
   :root[class~="dark"] {
     /* BTN */
     --btn-primary: #6155c8;
+    --btn-secondary: #172331;
     /* BG */
     --bg-primary: red;
     --bg-secondary: #232a31;
@@ -48,7 +50,7 @@ html {
 
 @media only screen and (min-width: 1000px) {
   html {
-    font-size: 14.3px;
+    font-size: 13.8px;
   }
 }
 

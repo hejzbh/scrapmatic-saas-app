@@ -23,6 +23,9 @@ export async function getWorkflows(
         where: { userId: user.id },
         take: PAGINATION_PER_PAGE,
         skip: PAGINATION_PER_PAGE * (Number(params.page) - 1),
+        orderBy: {
+          createdAt: "desc",
+        },
       }),
       db.workflow.count({ where: { userId: user.id } }),
     ]);

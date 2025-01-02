@@ -20,7 +20,7 @@ const variantClasses = {
   primary:
     "bg-btnColors-primary text-white border-[1px] border-btnColors-primary hover:md:text-btnColors-primary hover:md:shadow-white hover:before:md:bg-white hover:md:after:bg-white disabled:hover:md:text-white disabled:hover:md:after:bg-btnColors-primary disabled:hover:md:before:bg-btnColors-primary",
   secondary:
-    "bg-btnColors-secondary text-textColors-primary hover:text-textColors-hover",
+    "bg-btnColors-secondary  active:bg-btnColors-primary hover:md:bg-btnColors-primary active:text-hoverColors-primary hover:md:text-hoverColors-primary",
 };
 
 const Button = ({
