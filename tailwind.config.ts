@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["selector", `data-mode="dark"`],
+  darkMode: "selector",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -22,18 +22,21 @@ export default {
         btnColors: {
           primary: "var(--btn-primary)",
           secondary: "var(--btn-secondary)",
+          muted: "var(--btn-muted)",
         },
         bgColors: {
           primary: "var(--bg-primary)",
           secondary: "var(--bg-secondary)",
+          muted: "var(--bg-muted)",
         },
         borderColors: {
           primary: "var(--border-primary)",
-          modal: "#3D3984",
+          secondary: "var(--border-secondary)",
         },
         textColors: {
           primary: "var(--text-primary)",
           secondary: "var(--text-secondary)",
+          muted: "var(--text-muted)",
           active: "var(--text-active)",
           label: "var(--text-label)",
           hover: "#6155c8",
@@ -43,6 +46,9 @@ export default {
         danger: "#FF6B6B",
         success: "#4CAF50",
         info: "yellow",
+      },
+      screens: {
+        "2k": "1930px",
       },
       backgroundImage: {
         sidebarGradient: "var(--bg-sidebar)",

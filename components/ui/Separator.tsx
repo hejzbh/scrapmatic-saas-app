@@ -7,7 +7,7 @@ type SeparatorProps = {
 const Separator = ({ className = "" }: SeparatorProps) => {
   return (
     <div
-      className={`bg-borderColors-primary h-[1.5px] w-full ${className}`}
+      className={`bg-borderColors-primary h-[1px] w-full ${className}`}
     ></div>
   );
 };

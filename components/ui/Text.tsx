@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-type TextProps = {
+export type TextProps = {
   className?: string;
   variant?: "p" | "span";
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "biggerSm";

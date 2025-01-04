@@ -1,7 +1,8 @@
+import { Workflow } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalName = "createWorkflow" | "editWorkflow";
-export type ModalData = Record<string, unknown> | undefined;
+export type ModalName = "createWorkflow" | "editWorkflow" | "deleteWorkflow";
+export type ModalData = Record<string, Workflow> | undefined;
 
 export interface ModalType {
   name: ModalName;
@@ -9,14 +10,17 @@ export interface ModalType {
 }
 interface ModalStoreInterface {
   modals: ModalType[];
-  openModal: (modalName: ModalName, data?: Record<string, unknown>) => void;
-  closeModal: (modalName: ModalName, data?: Record<string, unknown>) => void;
+  getModalInfo: (modalName: ModalName) => ModalType | undefined;
+  openModal: (modalName: ModalName, data?: ModalData) => void;
+  closeModal: (modalName: ModalName, data?: ModalData) => void;
   closeLastModal: () => void;
   closeAllModals: () => void;
 }
 
-export const useModals = create<ModalStoreInterface>((set) => ({
+export const useModals = create<ModalStoreInterface>((set, get) => ({
   modals: [],
+  getModalInfo: (modalName) =>
+    get().modals.find((modal) => modal.name === modalName),
   openModal: (modalName, data) => {
     set((store) => {
       // If modal is already opened

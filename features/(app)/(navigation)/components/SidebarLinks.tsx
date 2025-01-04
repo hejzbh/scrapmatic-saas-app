@@ -28,8 +28,8 @@ const SidebarLinks = ({ className = "" }: SidebarLinksProps) => {
                 href={link.href}
                 className={`flex items-center space-x-4 transition-all duration-300 ease-in-out rounded-br-[4rem]  px-6 py-3 ${
                   isAcitveLink
-                    ? "border-l-2 border-primary bg-primary/20 text-textColors-primary"
-                    : "hover:bg-primary/10 text-textColors-secondary"
+                    ? "border-l-2 border-primary bg-bgColors-muted text-textColors-primary"
+                    : "hover:bg-bgColors-muted text-textColors-secondary"
                 }`}
                 title={link.name}
               >

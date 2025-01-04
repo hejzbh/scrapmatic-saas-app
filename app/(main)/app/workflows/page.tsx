@@ -19,7 +19,7 @@ async function WorkflowsPage({
   searchParams.page ??= "1";
 
   return (
-    <div className="text-white">
+    <div className="text-white min-h-[50dvh]">
       <PageHeading
         title="Workflows"
         description="Manage your workflows"

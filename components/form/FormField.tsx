@@ -46,7 +46,7 @@ const FormField = ({
           value={value}
           placeholder={field.placeholder}
           onChange={handleFieldChange}
-          className="w-full rounded-3xl p-3 px-4 text-textColors-primary bg-transparent border-[1px] border-borderColors-modal outline-none"
+          className="w-full rounded-3xl p-3 px-4 text-textColors-primary bg-transparent border-[1px] border-borderColors-primary outline-none"
         />
       ) : field.type === "textarea" ? (
         <textarea
@@ -56,7 +56,7 @@ const FormField = ({
           rows={4}
           placeholder={field.placeholder}
           onChange={handleFieldChange}
-          className="w-full rounded-3xl p-3 px-4 text-textColors-primary bg-transparent border-[1px] border-borderColors-modal outline-none resize-none"
+          className="w-full rounded-3xl p-3 px-4 text-textColors-primary bg-transparent border-[1px] border-borderColors-primary outline-none resize-none"
         />
       ) : field.type === "checkbox" ? (
         "Checkbox"

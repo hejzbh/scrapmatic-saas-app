@@ -33,7 +33,7 @@ export const WorkflowsList = async ({
 
   return (
     <div className={`${className}`}>
-      <ul className="grid gap-10 grid-cols-1 md:grid-cols-2 ">
+      <ul className="grid gap-10 grid-cols-1 md:grid-cols-2 2k:grid-cols-3">
         {workflows?.map((workflow) => (
           <li className="h-full" key={workflow.id}>
             <WorkflowCard workflow={workflow} className="h-full" />
@@ -55,7 +55,9 @@ export const WorkflowsListSkeleton = ({
   className?: string;
 }) => {
   return (
-    <ul className={`gap-10 grid grid-cols-1 md:grid-cols-2 ${className}`}>
+    <ul
+      className={`gap-10 grid grid-cols-1 md:grid-cols-2 2k:grid-cols-3 ${className}`}
+    >
       {Array.from({ length: 4 })?.map((_, idx) => (
         <li key={idx} className="p-10 w-full bg-modalGradient rounded-3xl"></li>
       ))}

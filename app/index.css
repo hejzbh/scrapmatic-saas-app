@@ -7,19 +7,24 @@
   :root {
     /* BTN */
     --btn-primary: #6155c8;
-    --btn-secondary: #3f6c68;
+    --btn-secondary: #f2f2f2;
+    --btn-muted: #f5f5f5;
+    --bg-muted: #453a9910;
     /* BG */
     --bg-primary: white;
-    --bg-secondary: #f8f7fa;
+    --bg-secondary: #e4e7f1;
     --bg-sidebar: linear-gradient(145deg, #ffff 0%, #ffff 100%);
     --bg-body: linear-gradient(145deg, #f5f5f5 0%, #eaeaea 50%, #dcdcdc 100%);
-    --bg-modal: linear-gradient(145deg, #ffff 0%, #ffff 100%);
+    --bg-modal: linear-gradient(145deg, #ffff 0%, #fafafa 100%);
     /* BORDER */
-    --border-primary: #5353552d;
+
+    --border-primary: #dedee2;
+    --border-secondary: #9f9fa2;
     /* TEXT */
-    --text-primary: rgb(54, 53, 53);
-    --text-label: #101011;
-    --text-secondary: #6e708c;
+    --text-primary: #171717;
+    --text-secondary: #666666;
+    --text-muted: #6c757d;
+    --text-label: #69696e;
     --text-active: #6155c8;
   }
 
@@ -28,29 +33,33 @@
     /* BTN */
     --btn-primary: #6155c8;
     --btn-secondary: #172331;
+    --btn-muted: #282b2e;
     /* BG */
-    --bg-primary: red;
-    --bg-secondary: #232a31;
-    --bg-sidebar: linear-gradient(145deg, #030c15, #081423, #0000);
-    --bg-body: linear-gradient(145deg, #000000 0%, #030c15 50%, #050f1b 100%);
+    --bg-primary: #0e0e23;
+    --bg-secondary: #24243e;
+    --bg-muted: #0b1121;
+    --bg-sidebar: linear-gradient(145deg, #030710, #060c1a, #10142d);
+    --bg-body: linear-gradient(145deg, #030710, #060c1a, #10142d);
     --bg-modal: linear-gradient(#6155c829, #6155c800 60%);
     /* BORDER */
-    --border-primary: #1f3445;
+    --border-primary: #313069b9;
+    --border-secondary: #3e4057;
     /* TEXT */
-    --text-primary: #e6e0fc;
+    --text-primary: #ceccf1;
     --text-label: #e6e0fc;
-    --text-secondary: #afb9cf;
+    --text-secondary: #9597b0;
     --text-active: #6155c8;
+    --text-muted: #676981;
   }
 }
 
 html {
-  font-size: 13px;
+  font-size: 15px;
 }
 
-@media only screen and (min-width: 1000px) {
+@media screen and (max-width: 600px) {
   html {
-    font-size: 13.8px;
+    font-size: 13px;
   }
 }
 

@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 type ThemeType = "light" | "dark";
 
 export const useTheme = () => {
-  const [theme, setTheme] = useState<ThemeType>();
+  const [theme, setTheme] = useState<ThemeType>("dark");
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem("theme") as ThemeType) || "light";
+    const savedTheme = (localStorage.getItem("theme") as ThemeType) || "dark";
     setTheme(savedTheme);
     if (savedTheme === "dark") {
       document.documentElement.classList.add("dark");

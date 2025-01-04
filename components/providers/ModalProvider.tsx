@@ -15,8 +15,12 @@ const modalComponents: Record<
   ),
   editWorkflow: React.lazy(
     () =>
+      import("@/features/(app)/(workflows)/components/modals/EditWorkflowModal")
+  ),
+  deleteWorkflow: React.lazy(
+    () =>
       import(
-        "@/features/(app)/(workflows)/components/modals/CreateWorkflowModal"
+        "@/features/(app)/(workflows)/components/modals/DeleteWorkflowModal"
       )
   ),
 };
@@ -36,10 +40,10 @@ const ModalProvider = () => {
 
         return (
           <div
-            className="p-10 rounded-3xl border-[1px] border-borderColors-modal w-full max-w-[90%] lg:max-w-[768px] bg-modalGradient"
+            className="p-10 rounded-3xl absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] border-[1px] border-borderColors-primary w-full max-w-[90%] lg:max-w-[768px] bg-modalGradient"
             onClick={(e) => e.stopPropagation()}
             key={modal.name}
-            style={{ zIndex: i + 1 }}
+            style={{ zIndex: i + 10 }}
           >
             <Suspense>
               <Modal />
