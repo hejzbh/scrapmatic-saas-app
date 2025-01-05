@@ -17,7 +17,6 @@ export const truncString = (str: string, max: number) =>
 export const timeAgo = (date: Date) => {
   const now = new Date().getTime();
   const inputDate = new Date(date).getTime();
-
   const seconds = Math.floor((now - inputDate) / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);

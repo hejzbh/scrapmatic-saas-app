@@ -17,7 +17,8 @@ export async function getWorkflowDetails(id: string): Promise<Workflow> {
       },
     });
 
-    if (!workflow) throw new Error("Workflow does not exists");
+    if (!workflow)
+      throw new Error("Workflow does not exists or you cant access to it.");
 
     return workflow;
   } catch (err: any) {
