@@ -1,6 +1,8 @@
 import { FormFieldType } from "@/types/global";
 import React from "react";
 import Text from "@/components/ui/Text";
+import Label from "@/components/ui/Label";
+import Input from "@/components/ui/Input";
 
 interface FormFieldProps {
   className?: string;
@@ -22,31 +24,18 @@ const FormField = ({
   return (
     <div className={`${className}`}>
       {/** Label */}
-      <div className="flex items-center space-x-2 mb-2">
-        <Text className="!text-textColors-label font-semibold">
-          {field.label}
-        </Text>
-        <Text
-          size="xs"
-          className={
-            field.required
-              ? "!text-textColors-required"
-              : "!text-textColors-optional"
-          }
-        >
-          {field.required ? "(required)" : "(optional)"}
-        </Text>
-      </div>
+      <Label required={field.required} className="mb-2">
+        {field.label}
+      </Label>
       {/** Field */}
       {field.type === "input" ? (
-        <input
+        <Input
           name={field.name}
           required={field.required}
           type={field.inputType}
           value={value}
           placeholder={field.placeholder}
           onChange={handleFieldChange}
-          className="w-full rounded-3xl p-3 px-4 text-textColors-primary bg-transparent border-[1px] border-borderColors-primary outline-none"
         />
       ) : field.type === "textarea" ? (
         <textarea

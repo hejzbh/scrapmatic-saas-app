@@ -14,7 +14,9 @@ const WorkflowEditorProvider = ({
 }: ProviderProps) => {
   return (
     <ReactFlowProvider>
-      <div className="flex flex-col h-full w-full overflow-hidden">
+      <div
+        className={`flex flex-col h-full w-full overflow-hidden ${className}`}
+      >
         <section className="flex h-full overflow-auto">{children}</section>
       </div>
     </ReactFlowProvider>

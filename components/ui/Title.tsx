@@ -4,11 +4,12 @@ import React from "react";
 type TitleProps = {
   className?: string;
   variant: "h1" | "h2" | "h3";
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   children: React.ReactNode;
 };
 
 const fontSizesClasses = {
+  xs: "text-[.85rem] md:text-[1rem] lg:text-[1.1rem]",
   sm: "text-[1.25rem] md:text-[1.4375rem] lg:text-[1.5rem]",
   md: "text-[1.675rem] md:text-[1.8375rem] lg:text-[2rem]",
   lg: "text-[1.875rem] md:text-[2.4375rem] lg:text-[2.875rem]",

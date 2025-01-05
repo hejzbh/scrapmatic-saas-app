@@ -9,19 +9,25 @@ import {
   useEdgesState,
   useNodesState,
 } from "@xyflow/react";
+import { createNode } from "../features/(nodes)/actions/createNode";
+import { FlowNodeTaskType } from "@/types/flow-nodes";
+import NodeCard from "../features/(nodes)/components/NodeCard";
 
 interface WorkflowEditorProps {
   className?: string;
   workflow: Workflow;
 }
 
+const nodeComponents = {
+  FlowNode: NodeCard,
+};
+
 const WorkflowEditor = ({ className = "", workflow }: WorkflowEditorProps) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([
-    { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-    { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
+    createNode(FlowNodeTaskType.LAUNCH_BROWSER),
   ]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
+  console.log(nodes);
   return (
     <div className={`${className} h-[100dvh] w-full`}>
       <ReactFlow
@@ -30,9 +36,12 @@ const WorkflowEditor = ({ className = "", workflow }: WorkflowEditorProps) => {
         edges={edges}
         onEdgesChange={onEdgesChange}
         onNodesChange={onNodesChange}
+        nodeTypes={nodeComponents}
+        snapGrid={[35, 35]}
+        snapToGrid
+        fitViewOptions={{ padding: 1 }}
       >
         <Controls position="top-right" />
-
         <Background variant={BackgroundVariant.Dots} gap={35} size={1.5} />
       </ReactFlow>
     </div>
