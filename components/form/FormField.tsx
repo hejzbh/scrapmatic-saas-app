@@ -1,4 +1,4 @@
-import { FormFieldType } from "@/types";
+import { FormFieldType } from "@/types/global";
 import React from "react";
 import Text from "@/components/ui/Text";
 

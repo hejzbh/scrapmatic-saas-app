@@ -12,6 +12,7 @@
     "@auth0/nextjs-auth0": "^3.5.0",
     "@prisma/client": "^6.1.0",
     "@radix-ui/react-dialog": "^1.1.4",
+    "@xyflow/react": "^12.3.6",
     "mongodb": "^6.12.0",
     "next": "15.1.2",
     "react": "^19.0.0",

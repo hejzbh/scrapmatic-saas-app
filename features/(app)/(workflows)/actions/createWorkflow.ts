@@ -1,7 +1,7 @@
 "use server";
 import { useServerUser } from "@/features/(auth)/lib/useServerUser";
 import db from "@/lib/db";
-import { WorkflowFormData } from "@/types";
+import { WorkflowFormData } from "@/types/global";
 import {
   Workflow,
   WorkflowDefinitionEnum,

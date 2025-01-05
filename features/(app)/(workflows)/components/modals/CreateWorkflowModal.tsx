@@ -3,7 +3,7 @@ import React from "react";
 import Form from "@/components/form/Form";
 import { workflowFormFields } from "@/features/(app)/(workflows)/lib/const";
 import { createWorkflowValidators } from "@/features/(app)/(workflows)/lib/utils";
-import { WorkflowFormData } from "@/types";
+import { WorkflowFormData } from "@/types/global";
 import { createWorkflow } from "../../actions/createWorkflow";
 import useToats from "@/hooks/use-toats";
 import { useModals } from "@/hooks/use-modals";

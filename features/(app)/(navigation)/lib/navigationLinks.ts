@@ -1,4 +1,4 @@
-import { NavigationLinkType } from "@/types";
+import { NavigationLinkType } from "@/types/global";
 import { routes } from "@/lib/routes";
 import { IoHomeOutline } from "react-icons/io5";
 import { GoWorkflow } from "react-icons/go";

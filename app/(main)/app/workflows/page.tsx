@@ -3,7 +3,7 @@ import {
   WorkflowsList,
   WorkflowsListSkeleton,
 } from "@/features/(app)/(workflows)/components/WorkflowsList";
-import { PaginationSearchParams } from "@/types";
+import { PaginationSearchParams } from "@/types/global";
 import React, { Suspense } from "react";
 import { RiAddLargeLine } from "react-icons/ri";
 

@@ -5,7 +5,7 @@ import useToats from "@/hooks/use-toats";
 import React from "react";
 import { workflowFormFields } from "../../lib/const";
 import { createWorkflowValidators } from "../../lib/utils";
-import { WorkflowFormData } from "@/types";
+import { WorkflowFormData } from "@/types/global";
 import { truncString } from "@/lib/utils";
 import editWorkflow from "../../actions/editWorkflow";
 

@@ -1,5 +1,5 @@
 "use server";
-import { AuthUserType } from "@/types";
+import { AuthUserType } from "@/types/global";
 import { getSession } from "@auth0/nextjs-auth0";
 
 export async function useServerUser(): Promise<AuthUserType> {

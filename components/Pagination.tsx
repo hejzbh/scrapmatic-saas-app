@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo } from "react";
-import { PaginationSearchParams } from "@/types";
+import { PaginationSearchParams } from "@/types/global";
 import {
   PAGINATION_PER_PAGE,
   PAGINATION_PER_PAGE as PER_PAGE,

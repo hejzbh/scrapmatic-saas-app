@@ -1,4 +1,3 @@
-import { Session } from "@auth0/nextjs-auth0";
 import { IconType } from "react-icons";
 
 export type NavigationLinkType = {

@@ -1,4 +1,4 @@
-import { FormFieldType } from "@/types";
+import { FormFieldType } from "@/types/global";
 
 export const workflowFormFields: FormFieldType[] = [
   {

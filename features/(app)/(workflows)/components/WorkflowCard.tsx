@@ -7,6 +7,7 @@ import { timeAgo, truncString } from "@/lib/utils";
 import Dropdown from "@/components/ui/DropdownMenu";
 import Link from "next/link";
 import { useModals } from "@/hooks/use-modals";
+import { routes } from "@/lib/routes";
 
 type WorkflowCardProps = {
   className?: string;
@@ -18,7 +19,7 @@ const WorkflowCard = ({ className = "", workflow }: WorkflowCardProps) => {
 
   return (
     <Link
-      href={"/worklofws/id"}
+      href={routes.app.workflowEditor(workflow.id)}
       className={`rounded-xl py-4 px-6 border-[1px] bg-bgColors-primary dark:opacity-75 active:opacity-100 hover:md:opacity-100 transition border-borderColors-primary  flex flex-col justify-between  ${className}`}
     >
       <div className="mb-5">
@@ -54,10 +55,10 @@ const WorkflowCard = ({ className = "", workflow }: WorkflowCardProps) => {
         {workflow.description && (
           <Text
             size="sm"
-            className="text-textColors-secondary"
+            className="text-textColors-secondary md:max-w-[80%]"
             withoutDefaultClass
           >
-            {truncString(workflow.description, 60)}
+            {truncString(workflow.description, 100)}
           </Text>
         )}
       </div>

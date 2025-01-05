@@ -1,5 +1,5 @@
 import useForm, { FormValidators, FormValues } from "@/hooks/use-form";
-import { FormFieldType } from "@/types";
+import { FormFieldType } from "@/types/global";
 import React from "react";
 import FormField from "./FormField";
 import Button from "@/components/ui/Button";

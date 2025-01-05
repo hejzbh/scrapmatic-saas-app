@@ -7,7 +7,7 @@ import {
   AuthUserType,
   PaginationObjectType,
   PaginationSearchParams,
-} from "@/types";
+} from "@/types/global";
 import { Workflow } from "@prisma/client";
 
 type Params = {} & PaginationSearchParams;
@@ -17,6 +17,8 @@ export async function getWorkflows(
 ): Promise<{ workflows: Workflow[]; pagination: PaginationObjectType }> {
   try {
     const user: AuthUserType = await useServerUser();
+
+    if (!user) throw new Error("Unauthorized");
 
     const [workflows, workflowsCount] = await Promise.all([
       db.workflow.findMany({

@@ -1,5 +1,5 @@
 "use server";
-import { AuthUserType } from "@/types";
+import { AuthUserType } from "@/types/global";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 export function useClientUser(): AuthUserType | null {
