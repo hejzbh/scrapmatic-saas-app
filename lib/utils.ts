@@ -31,3 +31,19 @@ export const timeAgo = (date: Date) => {
   if (months < 12) return `${months} month${months > 1 ? "s" : ""} ago`;
   return `${years} year${years > 1 ? "s" : ""} ago`;
 };
+
+export function sanitize(str: string) {
+  if (!str) return "";
+
+  const map: Record<string, string> = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#x27;",
+    '"': "&quot;",
+    "/": "&#x2F;",
+  };
+
+  const reg = /[&<>"'/]/gi;
+  return str.replace(reg, (match) => map[match]);
+}

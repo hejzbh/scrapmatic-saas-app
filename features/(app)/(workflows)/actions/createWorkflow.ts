@@ -1,6 +1,7 @@
 "use server";
 import { useServerUser } from "@/features/(auth)/lib/useServerUser";
 import db from "@/lib/db";
+import { sanitize } from "@/lib/utils";
 import { WorkflowFormData } from "@/types/global";
 import {
   Workflow,
@@ -19,8 +20,8 @@ export async function createWorkflow(
     const newWorkflow = await db.workflow.create({
       data: {
         userId: user.id,
-        name: data.name,
-        description: data.description,
+        name: sanitize(data.name),
+        description: data.description && sanitize(data.description),
         status: WorkflowStatusEnum.DRAFT,
         definition: WorkflowDefinitionEnum.TODO,
       },
