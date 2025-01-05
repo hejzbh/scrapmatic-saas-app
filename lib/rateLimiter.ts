@@ -11,8 +11,7 @@ export async function rateLimiter(callback: Function) {
   lastRequestTime = now;
 
   try {
-    const result = await callback();
-    return result;
+    callback();
   } catch (error) {
     throw error;
   }
