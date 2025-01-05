@@ -17,7 +17,6 @@ export const truncString = (str: string, max: number) =>
 export const timeAgo = (date: Date) => {
   const now = new Date().getTime();
   const inputDate = new Date(date).getTime();
-
   const seconds = Math.floor((now - inputDate) / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -32,3 +31,19 @@ export const timeAgo = (date: Date) => {
   if (months < 12) return `${months} month${months > 1 ? "s" : ""} ago`;
   return `${years} year${years > 1 ? "s" : ""} ago`;
 };
+
+export function sanitize(str: string) {
+  if (!str) return "";
+
+  const map: Record<string, string> = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "'": "&#x27;",
+    '"': "&quot;",
+    "/": "&#x2F;",
+  };
+
+  const reg = /[&<>"'/]/gi;
+  return str.replace(reg, (match) => map[match]);
+}

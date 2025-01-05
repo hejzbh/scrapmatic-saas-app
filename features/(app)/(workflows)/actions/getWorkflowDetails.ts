@@ -1,11 +1,14 @@
 "use server";
 import { useServerUser } from "@/features/(auth)/lib/useServerUser";
 import db from "@/lib/db";
+import { rateLimiter } from "@/lib/rateLimiter";
 import { AuthUserType } from "@/types/global";
 import { Workflow } from "@prisma/client";
 
 export async function getWorkflowDetails(id: string): Promise<Workflow> {
   try {
+    await rateLimiter(() => Promise.resolve());
+
     const user: AuthUserType = await useServerUser();
 
     if (!user) throw new Error("Unauthorized");
@@ -17,7 +20,8 @@ export async function getWorkflowDetails(id: string): Promise<Workflow> {
       },
     });
 
-    if (!workflow) throw new Error("Workflow does not exists");
+    if (!workflow)
+      throw new Error("Workflow does not exists or you cant access to it.");
 
     return workflow;
   } catch (err: any) {
