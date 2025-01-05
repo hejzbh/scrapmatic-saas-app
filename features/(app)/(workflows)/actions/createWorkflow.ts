@@ -1,6 +1,7 @@
 "use server";
 import { useServerUser } from "@/features/(auth)/lib/useServerUser";
 import db from "@/lib/db";
+import { rateLimiter } from "@/lib/rateLimiter";
 import { sanitize } from "@/lib/utils";
 import { WorkflowFormData } from "@/types/global";
 import {
@@ -13,6 +14,8 @@ export async function createWorkflow(
   data: WorkflowFormData
 ): Promise<Workflow> {
   try {
+    await rateLimiter(() => Promise.resolve());
+
     const user = await useServerUser();
 
     if (!user) throw new Error("Unauthorized");

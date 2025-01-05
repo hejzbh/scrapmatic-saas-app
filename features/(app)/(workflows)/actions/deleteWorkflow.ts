@@ -2,9 +2,12 @@
 
 import { useServerUser } from "@/features/(auth)/lib/useServerUser";
 import db from "@/lib/db";
+import { rateLimiter } from "@/lib/rateLimiter";
 
 export async function deleteWorkflow(id: string) {
   try {
+    await rateLimiter(() => Promise.resolve());
+
     const user = await useServerUser();
 
     if (!user) throw new Error("Unauthorized");
