@@ -6,7 +6,7 @@ import { rateLimiter } from "@/lib/rateLimiter";
 
 export async function deleteWorkflow(id: string) {
   try {
-    await rateLimiter(() => Promise.resolve());
+    await rateLimiter();
 
     const user = await useServerUser();
 

@@ -8,7 +8,7 @@ import { Workflow } from "@prisma/client";
 
 export async function editWorkflow(id: string, newData: Partial<Workflow>) {
   try {
-    await rateLimiter(() => Promise.resolve());
+    await rateLimiter();
 
     const user = await useServerUser();
 

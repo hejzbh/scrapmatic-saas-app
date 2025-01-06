@@ -7,7 +7,7 @@ import { Workflow } from "@prisma/client";
 
 export async function getWorkflowDetails(id: string): Promise<Workflow> {
   try {
-    await rateLimiter(() => Promise.resolve());
+    await rateLimiter();
 
     const user: AuthUserType = await useServerUser();
 

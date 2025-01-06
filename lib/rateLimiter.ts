@@ -1,7 +1,7 @@
 let lastRequestTime = 0;
 const RATE_LIMIT_INTERVAL = 1000;
 
-export async function rateLimiter(callback: Function) {
+export async function rateLimiter() {
   const now = Date.now();
 
   if (now - lastRequestTime < RATE_LIMIT_INTERVAL) {
@@ -11,7 +11,7 @@ export async function rateLimiter(callback: Function) {
   lastRequestTime = now;
 
   try {
-    callback();
+    return true;
   } catch (error) {
     throw error;
   }

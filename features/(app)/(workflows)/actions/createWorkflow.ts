@@ -14,7 +14,7 @@ export async function createWorkflow(
   data: WorkflowFormData
 ): Promise<Workflow> {
   try {
-    await rateLimiter(() => Promise.resolve());
+    await rateLimiter();
 
     const user = await useServerUser();
 
