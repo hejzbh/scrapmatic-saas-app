@@ -3,8 +3,7 @@ import Title from "@/components/ui/Title";
 import Badge from "@/components/ui/Badge";
 import { PiCoinsLight } from "react-icons/pi";
 import { FaRegHandPaper } from "react-icons/fa";
-import { FlowNodeTaskObject } from "../../../lib/tasks";
-
+import { FlowNodeTaskObject } from "@/types/flow-nodes";
 const NodeHeader = ({
   task,
   className,

@@ -6,6 +6,7 @@ type InputProps = {
   type?: "email" | "password";
   value: string;
   placeholder?: string;
+  disabled?: boolean;
   className?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -17,6 +18,7 @@ const Input = ({
   value,
   placeholder = "",
   onChange,
+  disabled,
   className = "",
 }: InputProps) => {
   return (
@@ -25,10 +27,11 @@ const Input = ({
         name={name}
         required={required}
         type={type}
+        disabled={disabled}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        className={`w-full rounded-3xl p-3 px-4 text-textColors-primary bg-transparent border-[1px] text-sm border-borderColors-primary outline-none ${className}`}
+        className={`w-full rounded-3xl p-3 px-4 text-textColors-primary bg-transparent border-[1px] text-base border-borderColors-primary outline-none disabled:opacity-50 ${className}`}
       />
     </>
   );

@@ -15,7 +15,7 @@ const WorkflowEditorPage = async ({ params }: EditorPageProps) => {
   const workflow = await getWorkflowDetails(workflowId);
 
   return (
-    <WorkflowEditorProvider>
+    <WorkflowEditorProvider workflow={workflow}>
       <WorkflowEditor workflow={workflow} />
     </WorkflowEditorProvider>
   );

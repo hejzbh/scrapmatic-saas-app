@@ -28,6 +28,7 @@ export default {
           primary: "var(--bg-primary)",
           secondary: "var(--bg-secondary)",
           muted: "var(--bg-muted)",
+          node: "var(--bg-node)",
         },
         borderColors: {
           primary: "var(--border-primary)",
@@ -55,6 +56,28 @@ export default {
         appHeaderGradient: "var(--bg-sidebar)",
         bodyGradient: "var(--bg-body)",
         modalGradient: "var(--bg-modal)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
+        },
+        "accordion-up": {
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },

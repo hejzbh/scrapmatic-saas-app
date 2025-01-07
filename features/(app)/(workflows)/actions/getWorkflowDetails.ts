@@ -1,13 +1,13 @@
 "use server";
 import { useServerUser } from "@/features/(auth)/lib/useServerUser";
 import db from "@/lib/db";
-import { rateLimiter } from "@/lib/rateLimiter";
+// { rateLimiter } from "@/lib/rateLimiter";
 import { AuthUserType } from "@/types/global";
 import { Workflow } from "@prisma/client";
 
 export async function getWorkflowDetails(id: string): Promise<Workflow> {
   try {
-    await rateLimiter();
+    //await rateLimiter();
 
     const user: AuthUserType = await useServerUser();
 

@@ -4,11 +4,9 @@ import db from "@/lib/db";
 import { rateLimiter } from "@/lib/rateLimiter";
 import { sanitize } from "@/lib/utils";
 import { WorkflowFormData } from "@/types/global";
-import {
-  Workflow,
-  WorkflowDefinitionEnum,
-  WorkflowStatusEnum,
-} from "@prisma/client";
+import { Workflow, WorkflowStatusEnum } from "@prisma/client";
+import { createNode } from "../features/(editor)/features/(nodes)/actions/createNode";
+import { FlowNodeTaskType } from "@/types/flow-nodes";
 
 export async function createWorkflow(
   data: WorkflowFormData
@@ -20,13 +18,18 @@ export async function createWorkflow(
 
     if (!user) throw new Error("Unauthorized");
 
+    const initialFlow = {
+      nodes: [createNode(FlowNodeTaskType.LAUNCH_BROWSER)],
+      edges: [],
+    };
+
     const newWorkflow = await db.workflow.create({
       data: {
         userId: user.id,
         name: sanitize(data.name),
         description: data.description && sanitize(data.description),
         status: WorkflowStatusEnum.DRAFT,
-        definition: WorkflowDefinitionEnum.TODO,
+        editorObjectJSON: JSON.stringify(initialFlow),
       },
     });
 

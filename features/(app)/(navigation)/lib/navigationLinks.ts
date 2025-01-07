@@ -17,7 +17,7 @@ export const navigationLinks: NavigationLinkType[] = [
     Icon: GoWorkflow,
   },
   {
-    name: "Credentials",
+    name: "Sercrets",
     href: routes.app.credentials,
     Icon: SiFusionauth,
   },

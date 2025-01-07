@@ -1,5 +1,5 @@
 let lastRequestTime = 0;
-const RATE_LIMIT_INTERVAL = 1000;
+const RATE_LIMIT_INTERVAL = 1600;
 
 export async function rateLimiter() {
   const now = Date.now();

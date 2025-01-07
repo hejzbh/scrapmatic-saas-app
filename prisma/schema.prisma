@@ -21,7 +21,7 @@ model Workflow {
   name        String
   description String?
 
-  definition WorkflowDefinitionEnum
+  editorObjectJSON String
   status     WorkflowStatusEnum
 
   createdAt DateTime @default(now())
@@ -37,8 +37,5 @@ enum WorkflowStatusEnum {
   PUBLISHED
 }
 
-enum WorkflowDefinitionEnum {
-  TODO
-}
 
 

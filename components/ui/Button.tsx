@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Text, { TextProps } from "./Text";
 import { ModalType, useModals } from "@/hooks/use-modals";
+import Loader from "./Loader";
 
 export type ButtonProps = {
   className?: string;
@@ -21,6 +22,7 @@ export type ButtonProps = {
   disabled?: boolean;
   modal?: ModalType;
   textSize?: TextProps["size"];
+  loading?: boolean;
 };
 
 const variantClasses = {
@@ -48,6 +50,7 @@ const Button = ({
   ref,
   href,
   modal,
+  loading,
   type = "button",
   textSize = "md",
 }: ButtonProps) => {
@@ -74,12 +77,18 @@ const Button = ({
       title={dataTitle}
       className={`block max-w-fit cursor-pointer disabled:!opacity-50 rounded-md transition-all active:opacity-50 duration-200 ease-in-out hover:md:opacity-80 relative overflow-hidden  shadow-sm  md:before:absolute md:before:left-0 md:before:top-0 md:before:h-full md:before:w-0 md:before:duration-300 md:after:absolute md:after:right-0 md:after:top-0 md:after:h-full md:after:w-0 md:after:duration-300  hover:md:before:w-2/4  hover:md:after:w-2/4 md:after:z-[-1] md:before:z-[-1] ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
     >
-      {typeof children === "string" ? (
-        <Text size={textSize} withoutDefaultClass>
-          {children}
-        </Text>
+      {loading ? (
+        <Loader className="!text-[20px]" />
       ) : (
-        children
+        <>
+          {typeof children === "string" ? (
+            <Text size={textSize} withoutDefaultClass>
+              {children}
+            </Text>
+          ) : (
+            children
+          )}
+        </>
       )}
     </Element>
   );

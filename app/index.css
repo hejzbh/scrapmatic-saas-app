@@ -13,6 +13,7 @@
     /* BG */
     --bg-primary: white;
     --bg-secondary: #e4e7f1;
+    --bg-node: white;
     --bg-sidebar: linear-gradient(145deg, #ffff 0%, #ffff 100%);
     --bg-body: linear-gradient(145deg, #f5f5f5 0%, #eaeaea 50%, #dcdcdc 100%);
     --bg-modal: linear-gradient(145deg, #ffff 0%, #fafafa 100%);
@@ -38,6 +39,7 @@
     --bg-primary: #0e0e23;
     --bg-secondary: #24243e;
     --bg-muted: #0b1121;
+    --bg-node: #0c0a09;
     --bg-sidebar: linear-gradient(145deg, #030710, #060c1a, #10142d);
     --bg-body: linear-gradient(145deg, #030710, #060c1a, #10142d);
     --bg-modal: linear-gradient(#6155c829, #6155c800 60%);

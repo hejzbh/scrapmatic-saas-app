@@ -7,10 +7,9 @@ export const createNode = (
   return {
     id: crypto.randomUUID(),
     type: "FlowNode",
-
     data: {
       taskType,
-      values: {},
+      inputs: {},
     },
     position: position ?? { x: 0, y: 0 },
   };
