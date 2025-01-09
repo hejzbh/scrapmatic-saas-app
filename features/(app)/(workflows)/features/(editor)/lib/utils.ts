@@ -29,13 +29,7 @@ export const isConnectionValid = (
   );
 
   //  Validate if the source output can connect to the target input based on compatibility rules (see: inputs-outputs.ts)
-  if (
-    sourceOutput?.canConnectTo.some(
-      (cannConnectInput) => cannConnectInput.name === targetInput?.name
-    )
-  )
-    return true;
-
-  // If all validations failed, connection is not possible.
-  return false;
+  return sourceOutput?.canConnectTo.some(
+    (cannConnectInput) => cannConnectInput.name === targetInput?.name
+  );
 };
