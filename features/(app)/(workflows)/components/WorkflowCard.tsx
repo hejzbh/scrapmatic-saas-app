@@ -8,6 +8,7 @@ import Dropdown from "@/components/ui/DropdownMenu";
 import Link from "next/link";
 import { useModals } from "@/hooks/use-modals";
 import { routes } from "@/lib/routes";
+import { useClientUser } from "@/features/(auth)/lib/useClientUser";
 
 type WorkflowCardProps = {
   className?: string;
@@ -16,7 +17,8 @@ type WorkflowCardProps = {
 
 const WorkflowCard = ({ className = "", workflow }: WorkflowCardProps) => {
   const { openModal } = useModals();
-
+  const x = useClientUser();
+  console.log(x);
   return (
     <Link
       href={routes.app.workflowEditor(workflow.id)}

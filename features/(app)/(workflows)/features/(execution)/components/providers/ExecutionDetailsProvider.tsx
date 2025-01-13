@@ -33,11 +33,10 @@ export const ExecutionDetailsProvider = ({
     setRunning(execution.status === WorkflowExecutionStatusEnum.RUNNNING);
 
     if (execution.status === WorkflowExecutionStatusEnum.PENDING) {
+      setRunning(true);
       startWorkflowExecution(execution.id);
-      console.log(execution.id);
-      console.log("🐢🐢🐢🐢");
     }
-  }, [execution]);
+  }, [execution?.id]);
 
   return (
     <ExecutionDetailsContext.Provider value={{ phases, running }}>

@@ -5,6 +5,7 @@ import Breadcrumb from "@/features/(app)/(navigation)/components/Breadcrumb";
 import HamburgerButton from "@/components/ui/HamburgerButton";
 import Sidebar from "./Sidebar";
 import Logo from "@/components/ui/Logo";
+import LogoutButton from "@/features/(auth)/components/LogoutButton";
 
 type HeaderProps = {
   className?: string;
@@ -19,6 +20,7 @@ const Header = ({ className = "" }: HeaderProps) => {
         <div className="flex space-x-4">
           {" "}
           <ThemeToggler />
+          <LogoutButton />
           <HamburgerButton className="block lg:hidden">
             <Sidebar />
           </HamburgerButton>
