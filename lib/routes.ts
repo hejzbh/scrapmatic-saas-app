@@ -7,8 +7,17 @@ export const routes = {
     workflows: `${APP_ROUTE}/workflows`,
     credentials: `${APP_ROUTE}/credentials`,
     billing: `${APP_ROUTE}/billing`,
-    workflowEditor: function (id: string) {
-      return `${this.workflows}/${id}/editor`;
+    workflowEditor: function (workflowId: string) {
+      return `${this.workflows}/${workflowId}/editor`;
+    },
+    workflowExecutions: function (workflowId: string) {
+      return `${this.workflows}/${workflowId}/executions`;
+    },
+    workflowExecutionDetails: function (
+      workflowId: string,
+      executionId: string
+    ) {
+      return `${this.workflows}/${workflowId}/executions/${executionId}`;
     },
   },
 };

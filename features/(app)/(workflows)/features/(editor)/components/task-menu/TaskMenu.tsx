@@ -58,7 +58,8 @@ const TaskMenu = ({ className = "" }: TaskMenuProps) => {
             {tasksByGroup?.map((group, idx) => (
               <AccordionItem key={idx} value={group.groupName}>
                 <AccordionTrigger className="text-textColors-hover/90">
-                  {group.groupName}
+                  {group.groupName}{" "}
+                  {group.tasks.length ? ` - ${group.tasks.length}` : ``}
                 </AccordionTrigger>
                 <AccordionContent className="space-y-3">
                   {group?.tasks?.map((taskType) => (

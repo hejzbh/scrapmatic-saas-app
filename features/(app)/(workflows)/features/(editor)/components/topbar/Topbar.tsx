@@ -3,7 +3,7 @@ import Button from "@/components/ui/Button";
 import Text from "@/components/ui/Text";
 import { truncString } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { IoChevronBackOutline } from "react-icons/io5";
 import EditorActions from "./EditorActions";
 
@@ -30,7 +30,12 @@ const Topbar = ({
       {/** Back & Title */}
       <div className="flex  items-center space-x-5">
         <Button
-          onClick={() => router.back()}
+          onClick={() => {
+            const isSure = window.confirm(
+              "Are you sure you want to leave this page ?"
+            );
+            if (isSure) router.back();
+          }}
           variant="secondary"
           className="!p-3"
         >

@@ -17,7 +17,7 @@ export const Toast = ({
   const toastStyles: Record<ToastType["type"], string> = {
     success: "bg-success text-white",
     error: "bg-danger text-white",
-    info: "bg-info text-white",
+    info: "bg-info !text-[black]",
   };
 
   return (
@@ -26,10 +26,10 @@ export const Toast = ({
       onClick={() => removeToast(id)}
     >
       <div className="flex-1 mr-4">
-        <Text className="!text-white">{message}</Text>
+        <Text withoutDefaultClass>{message}</Text>
       </div>
       <button
-        className=" text-white rounded-lg hover:opacity-80 cursor-pointer p-1"
+        className=" rounded-lg hover:opacity-80 cursor-pointer p-1"
         onClick={() => removeToast(id)}
       >
         <IoMdClose className="text-lg" />

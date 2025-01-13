@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export type FormValues = { [key: string]: any };
 type FormErrors = { [key: string]: string };
@@ -15,7 +15,6 @@ export const useForm = ({
 }) => {
   const [values, setValues] = useState<FormValues>(defaultValues);
   const [errors, setErrors] = useState<FormErrors>({});
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Initializing default values
@@ -23,34 +22,34 @@ export const useForm = ({
     if (!values) setValues(defaultValues);
   }, [defaultValues]);
 
-  function handleFieldChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    const { name, value } = event.target;
+  const handleFieldChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = event.target;
 
-    setValues((values) => ({ ...values, [name]: value }));
+      setValues((values) => ({ ...values, [name]: value }));
 
-    // Clear errors when field changes
-    if (errors[name]) {
-      if (!validators[name](value)) {
-        clearErrors(name);
+      // Clear errors when field changes
+      if (errors[name]) {
+        if (!validators[name](value)) {
+          clearErrors(name);
+        }
       }
-    }
-  }
+    },
+    [errors, validators]
+  );
 
-  // Function to clear all or specific errors
-  function clearErrors(name?: string) {
+  const clearErrors = useCallback((name?: string) => {
     setErrors((errors) => {
       if (name) {
         delete errors[name];
-        return errors;
+        return { ...errors };
       } else {
         return {};
       }
     });
-  }
+  }, []);
 
-  function validateForm() {
+  const validateForm = useCallback(() => {
     let newErrors: FormErrors = {};
 
     for (const key in validators) {
@@ -65,25 +64,25 @@ export const useForm = ({
 
     setErrors(newErrors);
 
-    return Object.values(newErrors).length === 0; // This means our form is successfully filled up without any erros
-  }
+    return Object.values(newErrors).length === 0; // Form is valid if there are no errors
+  }, [validators, values]);
 
-  async function handleSubmit(
-    onSubmit: (values: FormValues) => Promise<void> | void
-  ) {
-    try {
-      if (isSubmitting) return;
+  const handleSubmit = useCallback(
+    async (onSubmit: (values: FormValues) => Promise<void> | void) => {
+      try {
+        if (isSubmitting) return;
 
-      setIsSubmitting(true);
+        setIsSubmitting(true);
 
-      if (validateForm()) {
-        await onSubmit(values);
+        if (validateForm()) {
+          await onSubmit(values);
+        }
+      } finally {
+        setIsSubmitting(false);
       }
-    } finally {
-      console.log("haaaah");
-      setIsSubmitting(false);
-    }
-  }
+    },
+    [isSubmitting, validateForm, values]
+  );
 
   return {
     values,

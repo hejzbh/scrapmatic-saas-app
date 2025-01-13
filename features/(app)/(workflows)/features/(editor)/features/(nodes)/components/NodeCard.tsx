@@ -7,6 +7,7 @@ import NodeInputsList from "./NodeInputsList";
 import { TASK_REGISTRY } from "../../../lib/taskRegistry";
 import NodeOutputsList from "./NodeOutputsList";
 import Separator from "@/components/ui/Separator";
+import { useInvalidInputs } from "../hooks/use-invalid-inputs";
 
 type NodeCardProps = NodeProps;
 
@@ -18,7 +19,14 @@ const NodeCard = (props: NodeCardProps) => {
     [node?.data?.taskType]
   );
 
+  const { invalidInputs } = useInvalidInputs();
+
   if (!node) return null;
+
+  const hasInvalidInput = useMemo(
+    () => invalidInputs.some((input) => input.nodeId === node.id),
+    [invalidInputs.length, node]
+  );
 
   return (
     <div
@@ -27,9 +35,9 @@ const NodeCard = (props: NodeCardProps) => {
         props.selected
           ? "border-borderColors-primary"
           : "border-borderColors-secondary"
-      }`}
+      } ${hasInvalidInput && "!border-danger"}`}
     >
-      <NodeHeader dragging={props.dragging} task={task} />
+      <NodeHeader nodeId={node.id} dragging={props.dragging} task={task} />
       <NodeInputsList node={node as FlowNode} inputs={task.inputs || []} />
       <Separator />
       <NodeOutputsList node={node as FlowNode} outputs={task.outputs || []} />

@@ -51,4 +51,5 @@ export type FlowNodeTaskObject = {
   iconProps?: any;
   inputs: TaskInputObject[];
   outputs: TaskOutputObject[];
+  credits: number;
 };

@@ -16,7 +16,7 @@ datasource db {
 // Models
 
 model Workflow {
-  id          String  @id @default(uuid()) @map("_id") @db.String
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   userId      String
   name        String
   description String?
@@ -27,9 +27,50 @@ model Workflow {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  executions WorkflowExecution[]
+
   // User cannot have two workflows with the same name
   @@unique([name, userId])
 }
+
+
+model WorkflowExecution {
+  id String @id @default(auto()) @map("_id")  @db.ObjectId
+  workflowId String @db.ObjectId
+  userId String
+  trigger String
+  status WorkflowExecutionStatusEnum
+
+  
+  workflow Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  phases ExecutionPhase[]
+  
+  createdAt DateTime @default(now())
+  startedAt DateTime?
+  completedAt DateTime? 
+}
+
+model ExecutionPhase {
+  id String @id @default(auto()) @map("_id")  @db.ObjectId
+  userId String
+  status ExecutionPhaseStatusEnum 
+  nodeId String
+  taskName String
+  inputs String?
+  outputs String? 
+
+  number Int 
+  creditsCost Int?
+
+  workflowExecutionId String?  @db.ObjectId
+  execution WorkflowExecution? @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
+
+  startedAt DateTime?
+  completedAt DateTime?
+
+}
+
 
 // Enums
 enum WorkflowStatusEnum {
@@ -37,5 +78,21 @@ enum WorkflowStatusEnum {
   PUBLISHED
 }
 
+enum WorkflowExecutionStatusEnum {
+  PENDING
+  RUNNNING
+  COMPLETED 
+  FAILED
+}
 
+enum ExecutionPhaseStatusEnum {
+  CREATED
+  PENDING
+  RUNNNING
+  COMPLETED 
+  FAILED
+}
 
+enum WorkflowExecutionTriggerEnum {
+  MANUAL
+}

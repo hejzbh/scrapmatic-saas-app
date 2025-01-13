@@ -13,7 +13,6 @@ import {
 } from "@xyflow/react";
 import { EditorObjectData, FlowNode } from "@/types/flow-nodes";
 import NodeCard from "../features/(nodes)/components/NodeCard";
-
 import onTaskDrop from "../actions/onTaskDrop";
 import onConnect from "../actions/onConnect";
 import { isConnectionValid } from "../lib/utils";
@@ -39,6 +38,7 @@ const WorkflowEditor = ({ className = "", workflow }: WorkflowEditorProps) => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const { setViewport, screenToFlowPosition, updateNodeData } = useReactFlow();
   const [dragingOver, setDragingOver] = useState<boolean>(false);
+  console.log(edges, nodes);
 
   // Load stored workflow editor data
   useEffect(() => {

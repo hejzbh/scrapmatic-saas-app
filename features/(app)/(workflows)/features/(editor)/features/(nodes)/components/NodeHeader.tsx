@@ -2,17 +2,23 @@ import React from "react";
 import Title from "@/components/ui/Title";
 import Badge from "@/components/ui/Badge";
 import { PiCoinsLight } from "react-icons/pi";
-import { FaRegHandPaper } from "react-icons/fa";
-import { FlowNodeTaskObject } from "@/types/flow-nodes";
+
+import { FlowNode, FlowNodeTaskObject } from "@/types/flow-nodes";
+import Dropdown from "@/components/ui/DropdownMenu";
+import { useReactFlow } from "@xyflow/react";
+import { createNode } from "../actions/createNode";
 const NodeHeader = ({
   task,
+  nodeId,
   className,
-  dragging,
 }: {
   task: FlowNodeTaskObject;
   className?: string;
   dragging?: boolean;
+  nodeId: string;
 }) => {
+  const { deleteElements, addNodes, getNode } = useReactFlow();
+
   if (!task) return null;
 
   return (
@@ -29,9 +35,9 @@ const NodeHeader = ({
       <div className="flex items-center space-x-2">
         {task.isEntryPoint && <Badge>Entry point</Badge>}
         <Badge>
-          <PiCoinsLight className="text-xl" /> 2
+          <PiCoinsLight className="text-xl" /> {task.credits}
         </Badge>
-        <button title="Drag" className="node-drag-handler">
+        {/**        <button title="Drag" className="node-drag-handler">
           <FaRegHandPaper
             className={`text-[25px] transition ${
               dragging
@@ -39,7 +45,38 @@ const NodeHeader = ({
                 : "text-textColors-muted hover:text-textColors-active"
             }`}
           />
-        </button>
+        </button> */}
+        {!task.isEntryPoint && (
+          <Dropdown
+            className="dropdown"
+            options={[
+              {
+                name: "Duplicate",
+                onClick: () => {
+                  const node = getNode(nodeId);
+                  addNodes(
+                    createNode(
+                      task.type,
+                      node && {
+                        x: node?.position?.x + 70,
+                        y: node?.position.y - 100,
+                      }
+                    )
+                  );
+                },
+              },
+              {
+                name: "Delete",
+                onClick: () => {
+                  deleteElements({
+                    nodes: [{ id: nodeId }],
+                  });
+                },
+                className: "!bg-danger/40 hover:!bg-danger/100 text-white",
+              },
+            ]}
+          />
+        )}
       </div>
     </div>
   );
