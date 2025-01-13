@@ -76,7 +76,9 @@ model UserBalance {
   id String @id @default(auto()) @map("_id")  @db.ObjectId
   userId String
   availableCredits Int
-  lastLoadedPlanId String?
+  lastLoadedPackId String?
+
+  @@unique([userId])
 }
 
 

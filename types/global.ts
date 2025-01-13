@@ -15,6 +15,7 @@ export type AuthUserType = {
   email: string;
   email_verified: boolean;
   sub: string;
+  stripeCustomerId: string;
   id: string;
   sid: string;
 };
