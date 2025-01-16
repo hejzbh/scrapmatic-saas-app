@@ -11,7 +11,7 @@ interface FormProps {
   defaultValues: FormValues;
   validators: FormValidators;
   fields: FormFieldType[];
-  onSubmit: (values: FormValues) => Promise<void> | void;
+  onSubmit: (values: FormValues) => Promise<void> | void; // eslint-disable-line
 }
 
 const Form = ({

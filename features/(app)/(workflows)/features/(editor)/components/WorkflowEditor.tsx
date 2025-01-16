@@ -38,7 +38,6 @@ const WorkflowEditor = ({ className = "", workflow }: WorkflowEditorProps) => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const { setViewport, screenToFlowPosition, updateNodeData } = useReactFlow();
   const [dragingOver, setDragingOver] = useState<boolean>(false);
-  console.log(edges, nodes);
 
   // Load stored workflow editor data
   useEffect(() => {

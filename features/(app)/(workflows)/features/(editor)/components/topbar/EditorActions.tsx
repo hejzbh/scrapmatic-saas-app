@@ -35,8 +35,7 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
       .then(async (executionPlan) => {
         // Ensure an execution plan is generated
         if (!executionPlan) return;
-        console.log(executionPlan);
-        return;
+
         // Validate the execution plan has at least two tasks
         if (executionPlan.steps.length < 2)
           throw new Error("Please add at least two tasks to your workflow");

@@ -15,8 +15,6 @@ export const useGenerateExecution = () => {
     clearInvalidInputs();
 
     return await flowToExecutionPlan(nodes as FlowNode[], edges).then((res) => {
-      console.log(res);
-      console.log("😶😶😶😶");
       // Inputs are missing...
       if (res.invalidInputs) {
         setInvalidInputs(res.invalidInputs);

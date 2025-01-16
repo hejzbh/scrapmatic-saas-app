@@ -18,7 +18,7 @@ type WorkflowCardProps = {
 const WorkflowCard = ({ className = "", workflow }: WorkflowCardProps) => {
   const { openModal } = useModals();
   const x = useClientUser();
-  console.log(x);
+
   return (
     <Link
       href={routes.app.workflowEditor(workflow.id)}

@@ -13,8 +13,8 @@ async function fetchProducts() {
     .map((product) => ({
       id: product.id,
       name: product.name,
-      price: product.default_price?.unit_amount / 100 || 0,
-      currency: product.default_price?.currency || "usd",
+      price: (product as any).default_price?.unit_amount / 100 || 0,
+      currency: (product as any).default_price?.currency || "usd",
       default_price: product.default_price as { id: string },
     }))
     .sort((a, b) => a.price - b.price);

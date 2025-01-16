@@ -15,10 +15,10 @@ export type ButtonProps = {
   dataTitle?: string;
   ref?: any; // eslint-disable-line
   onClick?: (
-    e:
-      | React.MouseEvent<HTMLAnchorElement, MouseEvent>
+    e: // eslint-disable-line
+    | React.MouseEvent<HTMLAnchorElement, MouseEvent>
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  ) => void; // eslint-disable-line
   disabled?: boolean;
   modal?: ModalType;
   textSize?: TextProps["size"];

@@ -56,9 +56,9 @@ export async function GET() {
 
     // 4) Return the user object
     return Response.json(user, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     // Return a 500 Internal Server Error
-    return Response.json(null, { status: 500 });
+    return Response.json(error.message, { status: 500 });
   }
 }
 

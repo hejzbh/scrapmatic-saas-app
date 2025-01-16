@@ -5,9 +5,7 @@ import { getSession } from "@auth0/nextjs-auth0";
 import {
   ExecutionStepStatusEnum,
   WorkflowExecutionStatusEnum,
-  WorkflowExecutionTriggerEnum,
 } from "@prisma/client";
-import { TASK_REGISTRY } from "../lib/taskRegistry";
 
 export async function createWorkflowExecution(
   workflowId: string,
@@ -35,8 +33,6 @@ export async function createWorkflowExecution(
         status: WorkflowExecutionStatusEnum.PENDING,
         steps: {
           create: executionPlan.steps.map((step) => {
-            const task = TASK_REGISTRY[step.node.data.taskType];
-
             return {
               userId: session.user.sub,
               status: ExecutionStepStatusEnum.CREATED,

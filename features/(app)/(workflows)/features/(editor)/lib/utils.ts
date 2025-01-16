@@ -54,6 +54,8 @@ export const flowToExecutionPlan = async (
 
   if (!entryNode) throw new Error("TODO");
 
+  nodes = nodes.sort((node1, node2) => node1.position.x - node2.position.x);
+
   const executionPlan: WorkflowExecutionPlan = {
     steps: [],
     creditsCost: 0,
@@ -122,7 +124,6 @@ const getInvalidInputs = (
 
     if (linkedOutput) continue; // Valid if output is linked from a planned node
 
-    console.log(planned);
     invalidInputs.push({ name: taskInput.name, nodeId: node.id }); // Mark as invalid if all checks fail
   }
 

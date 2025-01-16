@@ -32,8 +32,6 @@ export const ExecutionDetailsProvider = ({
       ),
   });
 
-  console.log(steps);
-
   useEffect(() => {
     setSteps(execution.steps);
 

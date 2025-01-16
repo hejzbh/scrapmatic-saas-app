@@ -3,7 +3,6 @@ import { buy } from "@/lib/stripe";
 import React from "react";
 
 const BuyButton = ({ price }: { price: { id: string } }) => {
-  console.log(price);
   return (
     <button
       onClick={() => buy(price.id)}

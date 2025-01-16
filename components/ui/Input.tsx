@@ -8,7 +8,7 @@ type InputProps = {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; // eslint-disable-line
 };
 
 const Input = ({
