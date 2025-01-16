@@ -37,6 +37,7 @@ export async function createWorkflowExecution(
               userId: session.user.sub,
               status: ExecutionStepStatusEnum.CREATED,
               nodeId: step.node.id,
+              taskType: step.taskType,
               number: step.number,
             };
           }),

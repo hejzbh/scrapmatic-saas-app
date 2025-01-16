@@ -7,16 +7,20 @@ import { WorkflowFormData } from "@/types/global";
 import { createWorkflow } from "../../actions/createWorkflow";
 import useToats from "@/hooks/use-toats";
 import { useModals } from "@/hooks/use-modals";
+import { useRouter } from "next/navigation";
+import { routes } from "@/lib/routes";
 
 const CreateWorkflowModal = () => {
   const { addToast } = useToats();
   const { closeModal } = useModals();
+  const router = useRouter();
 
   async function onSubmit(formData: WorkflowFormData) {
     await createWorkflow(formData)
-      .then(() => {
+      .then((workflow) => {
         addToast("You've successfully created a new workflow !", "success");
         closeModal("createWorkflow");
+        router.push(routes.app.workflowEditor(workflow.id));
       })
       .catch((err) => {
         addToast(err.message, "error");

@@ -70,7 +70,7 @@ export const flowToExecutionPlan = async (
   ) {
     const nextStep:
       | WorkflowExecutionStep
-      | { number?: number; node?: FlowNode } = {};
+      | { number?: number; node?: FlowNode; taskType?: string } = {};
 
     for (const node of nodes) {
       // Node already put in the execution plan
@@ -88,6 +88,7 @@ export const flowToExecutionPlan = async (
       }
 
       nextStep.node = node;
+      nextStep.taskType = node.data.taskType;
     }
 
     if (nextStep.node) {
