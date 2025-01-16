@@ -38,7 +38,6 @@ model WorkflowExecution {
   id String @id @default(auto()) @map("_id")  @db.ObjectId
   workflowId String @db.ObjectId
   userId String
-  trigger String
   status WorkflowExecutionStatusEnum
   creditsCost Int
 
@@ -57,12 +56,9 @@ model ExecutionStep {
   userId String
   status ExecutionStepStatusEnum 
   nodeId String
-  inputs String?
-  outputs String? 
-  number Int
+  outputResults String? 
   workflowExecutionId String?  @db.ObjectId
   execution WorkflowExecution? @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
-
   startedAt DateTime?
   completedAt DateTime?
 

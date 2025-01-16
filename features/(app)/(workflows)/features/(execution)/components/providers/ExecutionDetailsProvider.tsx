@@ -24,9 +24,15 @@ export const ExecutionDetailsProvider = ({
 
   useExecutionProgress({
     onStatusChange: setStatus,
+    onStepChange: (updatedStep) =>
+      setSteps((steps) =>
+        steps.map((step) =>
+          step.id === updatedStep.id ? { ...step, ...updatedStep } : step
+        )
+      ),
   });
 
-  console.log(status);
+  console.log(steps);
 
   useEffect(() => {
     setSteps(execution.steps);
@@ -40,6 +46,15 @@ export const ExecutionDetailsProvider = ({
   return (
     <ExecutionDetailsContext.Provider value={{ steps, running }}>
       {children}
+      <ul className="space-y-5">
+        {steps?.map((step) => {
+          return (
+            <li key={step.id} className="text-white font-bold text-4xl">
+              {step.status}
+            </li>
+          );
+        })}
+      </ul>
     </ExecutionDetailsContext.Provider>
   );
 };

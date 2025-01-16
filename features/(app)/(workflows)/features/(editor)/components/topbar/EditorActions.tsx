@@ -6,7 +6,7 @@ import { IoSaveOutline } from "react-icons/io5";
 import { useReactFlow } from "@xyflow/react";
 import useToats from "@/hooks/use-toats";
 import editWorkflow from "@/features/(app)/(workflows)/actions/editWorkflow";
-import { useExecution } from "../../hooks/use-generate-execution";
+import { useGenerateExecution } from "../../hooks/use-generate-execution";
 import { createWorkflowExecution } from "../../actions/createWorkflowExecution";
 import { useRouter } from "next/navigation";
 import { routes } from "@/lib/routes";
@@ -19,7 +19,7 @@ interface EditorActionsProps {
 const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
   const { toObject } = useReactFlow();
   const { addToast } = useToats();
-  const generateExecutionPlan = useExecution();
+  const generateExecutionPlan = useGenerateExecution();
   const [pending, setPending] = useState({
     handleSave: false,
     handlePlay: false,
@@ -35,9 +35,10 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
       .then(async (executionPlan) => {
         // Ensure an execution plan is generated
         if (!executionPlan) return;
-
+        console.log(executionPlan);
+        return;
         // Validate the execution plan has at least two tasks
-        if (executionPlan.length < 2)
+        if (executionPlan.steps.length < 2)
           throw new Error("Please add at least two tasks to your workflow");
 
         // Save the workflow data before execution

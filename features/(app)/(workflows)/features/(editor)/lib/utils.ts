@@ -1,9 +1,13 @@
 import { FlowNode } from "@/types/flow-nodes";
 import { Connection } from "@xyflow/react";
 import { TASK_REGISTRY } from "./taskRegistry";
-import { WorkflowExecutionPlan } from "@/types/execution";
+import {
+  WorkflowExecutionPlan,
+  WorkflowExecutionStep,
+} from "@/types/execution";
 import { Edge, getIncomers } from "@xyflow/react";
 import { InvalidInputType } from "../features/(nodes)/hooks/use-invalid-inputs";
+import { CREDITS_COSTS } from "@/lib/const";
 
 export const isConnectionValid = (
   connection: Connection,
@@ -50,7 +54,10 @@ export const flowToExecutionPlan = async (
 
   if (!entryNode) throw new Error("TODO");
 
-  const executionPlan: WorkflowExecutionPlan = [];
+  const executionPlan: WorkflowExecutionPlan = {
+    steps: [],
+    creditsCost: 0,
+  };
   const planned = new Set<string>();
 
   // || planned.size < nodes.length;
@@ -59,10 +66,9 @@ export const flowToExecutionPlan = async (
     step <= nodes.length && planned.size < nodes.length;
     step++
   ) {
-    const nextStep: { step: number; nodes: FlowNode[] } = {
-      step,
-      nodes: [],
-    };
+    const nextStep:
+      | WorkflowExecutionStep
+      | { number?: number; node?: FlowNode } = {};
 
     for (const node of nodes) {
       // Node already put in the execution plan
@@ -79,11 +85,15 @@ export const flowToExecutionPlan = async (
         } else continue;
       }
 
-      nextStep.nodes.push(node as FlowNode);
+      nextStep.node = node;
     }
 
-    nextStep.nodes.forEach((node) => planned.add(node.id));
-    executionPlan.push(nextStep);
+    if (nextStep.node) {
+      planned.add(nextStep.node?.id);
+      executionPlan.steps.push(nextStep as WorkflowExecutionStep);
+      executionPlan.creditsCost +=
+        CREDITS_COSTS.tasks[nextStep.node?.data?.taskType];
+    }
   }
 
   return { executionPlan };

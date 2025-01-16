@@ -27,7 +27,7 @@ export async function createWorkflowExecution(
     // Create execution
     // TODO: Move to the backend
     // TODO: Skontati kako handlovati credits, onemoguiciti kreiranje execution ako nema dovoljno kredita za sve steps npr (po task_name to uzmemo)
-    let creditsCost = 0;
+
     const execution = await db.workflowExecution.create({
       data: {
         workflowId,
@@ -35,21 +35,18 @@ export async function createWorkflowExecution(
         trigger: WorkflowExecutionTriggerEnum.MANUAL,
         status: WorkflowExecutionStatusEnum.PENDING,
         steps: {
-          create: executionPlan.flatMap((plan) =>
-            plan.nodes.flatMap((node) => {
-              const task = TASK_REGISTRY[node.data.taskType];
-              creditsCost += task.credits;
+          create: executionPlan.steps.map((step) => {
+            const task = TASK_REGISTRY[step.node.data.taskType];
 
-              return {
-                userId: session.user.sub,
-                status: ExecutionStepStatusEnum.CREATED,
-                nodeId: node.id,
-                number: plan.step,
-              };
-            })
-          ),
+            return {
+              userId: session.user.sub,
+              status: ExecutionStepStatusEnum.CREATED,
+              nodeId: step.node.id,
+              number: step.number,
+            };
+          }),
         },
-        creditsCost,
+        creditsCost: executionPlan.creditsCost,
       },
       select: {
         id: true,

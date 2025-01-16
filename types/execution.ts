@@ -1,6 +1,8 @@
 import { FlowNode } from "./flow-nodes";
 
+export type WorkflowExecutionStep = { number: number; node: FlowNode };
+
 export type WorkflowExecutionPlan = {
-  step: number;
-  nodes: FlowNode[];
-}[];
+  steps: WorkflowExecutionStep[];
+  creditsCost: number;
+};

@@ -4,7 +4,7 @@ import { flowToExecutionPlan } from "../lib/utils";
 import { FlowNode } from "@/types/flow-nodes";
 import { useInvalidInputs } from "../features/(nodes)/hooks/use-invalid-inputs";
 
-export const useExecution = () => {
+export const useGenerateExecution = () => {
   const { toObject } = useReactFlow();
 
   const { setInvalidInputs, clearInvalidInputs } = useInvalidInputs();
@@ -15,6 +15,8 @@ export const useExecution = () => {
     clearInvalidInputs();
 
     return await flowToExecutionPlan(nodes as FlowNode[], edges).then((res) => {
+      console.log(res);
+      console.log("😶😶😶😶");
       // Inputs are missing...
       if (res.invalidInputs) {
         setInvalidInputs(res.invalidInputs);
