@@ -3,7 +3,7 @@ import db from "@/lib/db";
 import { WorkflowExecutionPlan } from "@/types/execution";
 import { getSession } from "@auth0/nextjs-auth0";
 import {
-  ExecutionPhaseStatusEnum,
+  ExecutionStepStatusEnum,
   WorkflowExecutionStatusEnum,
   WorkflowExecutionTriggerEnum,
 } from "@prisma/client";
@@ -26,7 +26,7 @@ export async function createWorkflowExecution(
 
     // Create execution
     // TODO: Move to the backend
-    // TODO: Skontati kako handlovati credits, onemoguiciti kreiranje execution ako nema dovoljno kredita za sve phases npr (po task_name to uzmemo)
+    // TODO: Skontati kako handlovati credits, onemoguiciti kreiranje execution ako nema dovoljno kredita za sve steps npr (po task_name to uzmemo)
     let creditsCost = 0;
     const execution = await db.workflowExecution.create({
       data: {
@@ -34,7 +34,7 @@ export async function createWorkflowExecution(
         userId: session.user.sub,
         trigger: WorkflowExecutionTriggerEnum.MANUAL,
         status: WorkflowExecutionStatusEnum.PENDING,
-        phases: {
+        steps: {
           create: executionPlan.flatMap((plan) =>
             plan.nodes.flatMap((node) => {
               const task = TASK_REGISTRY[node.data.taskType];
@@ -42,10 +42,9 @@ export async function createWorkflowExecution(
 
               return {
                 userId: session.user.sub,
-                status: ExecutionPhaseStatusEnum.CREATED,
+                status: ExecutionStepStatusEnum.CREATED,
                 nodeId: node.id,
-                number: plan.phase,
-                taskName: task?.label,
+                number: plan.step,
               };
             })
           ),
@@ -54,7 +53,7 @@ export async function createWorkflowExecution(
       },
       select: {
         id: true,
-        phases: true,
+        steps: true,
       },
     });
 

@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useEffect, useState } from "react";
-import { ExecutionWithPhases } from "../../actions/getExecutionDetails";
-import { ExecutionPhase, WorkflowExecutionStatusEnum } from "@prisma/client";
+import { ExecutionWithSteps } from "../../actions/getExecutionDetails";
+import { ExecutionStep, WorkflowExecutionStatusEnum } from "@prisma/client";
 import { startWorkflowExecution } from "../../actions/startWorkflowExecution";
 import { useExecutionProgress } from "../../hooks/use-execution-progress";
 
@@ -14,32 +14,31 @@ export const ExecutionDetailsProvider = ({
   execution,
 }: {
   children: React.ReactNode;
-  execution: ExecutionWithPhases;
+  execution: ExecutionWithSteps;
 }) => {
-  const [phases, setPhases] = useState<ExecutionPhase[]>([]);
+  const [steps, setSteps] = useState<ExecutionStep[]>([]);
   const [running, setRunning] = useState<boolean>(false);
+  const [status, setStatus] = useState<WorkflowExecutionStatusEnum>(
+    execution.status
+  );
 
   useExecutionProgress({
-    onPhaseChanges: (phaseId, newData) =>
-      setPhases((phases) =>
-        phases.map((phase) =>
-          phase.id === phaseId ? { ...phase, ...newData } : phase
-        )
-      ),
+    onStatusChange: setStatus,
   });
 
-  useEffect(() => {
-    setPhases(execution.phases);
-    setRunning(execution.status === WorkflowExecutionStatusEnum.RUNNNING);
+  console.log(status);
 
-    if (execution.status === WorkflowExecutionStatusEnum.PENDING) {
+  useEffect(() => {
+    setSteps(execution.steps);
+
+    if (status === WorkflowExecutionStatusEnum.PENDING) {
       setRunning(true);
       startWorkflowExecution(execution.id);
     }
   }, [execution?.id]);
 
   return (
-    <ExecutionDetailsContext.Provider value={{ phases, running }}>
+    <ExecutionDetailsContext.Provider value={{ steps, running }}>
       {children}
     </ExecutionDetailsContext.Provider>
   );

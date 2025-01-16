@@ -45,25 +45,21 @@ model WorkflowExecution {
   
   workflow Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 
-  phases ExecutionPhase[]
+  steps ExecutionStep[]
   
   createdAt DateTime @default(now())
   startedAt DateTime?
   completedAt DateTime? 
 }
 
-model ExecutionPhase {
+model ExecutionStep {
   id String @id @default(auto()) @map("_id")  @db.ObjectId
   userId String
-  status ExecutionPhaseStatusEnum 
+  status ExecutionStepStatusEnum 
   nodeId String
-  taskName String
   inputs String?
   outputs String? 
-
-  number Int 
-  creditsCost Int?
-
+  number Int
   workflowExecutionId String?  @db.ObjectId
   execution WorkflowExecution? @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
 
@@ -95,7 +91,7 @@ enum WorkflowExecutionStatusEnum {
   FAILED
 }
 
-enum ExecutionPhaseStatusEnum {
+enum ExecutionStepStatusEnum {
   CREATED
   PENDING
   RUNNNING

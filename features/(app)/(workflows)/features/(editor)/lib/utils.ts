@@ -50,22 +50,17 @@ export const flowToExecutionPlan = async (
 
   if (!entryNode) throw new Error("TODO");
 
-  const executionPlan: WorkflowExecutionPlan = [
-    {
-      phase: 1,
-      nodes: [entryNode],
-    },
-  ];
-  const planned = new Set<string>().add(entryNode.id);
+  const executionPlan: WorkflowExecutionPlan = [];
+  const planned = new Set<string>();
 
   // || planned.size < nodes.length;
   for (
-    let phase = 2;
-    phase <= nodes.length && planned.size < nodes.length;
-    phase++
+    let step = 1;
+    step <= nodes.length && planned.size < nodes.length;
+    step++
   ) {
-    const nextPhase: { phase: number; nodes: FlowNode[] } = {
-      phase,
+    const nextStep: { step: number; nodes: FlowNode[] } = {
+      step,
       nodes: [],
     };
 
@@ -84,11 +79,11 @@ export const flowToExecutionPlan = async (
         } else continue;
       }
 
-      nextPhase.nodes.push(node as FlowNode);
+      nextStep.nodes.push(node as FlowNode);
     }
 
-    nextPhase.nodes.forEach((node) => planned.add(node.id));
-    executionPlan.push(nextPhase);
+    nextStep.nodes.forEach((node) => planned.add(node.id));
+    executionPlan.push(nextStep);
   }
 
   return { executionPlan };

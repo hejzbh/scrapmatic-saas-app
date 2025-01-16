@@ -1,14 +1,14 @@
 "use client";
 
 import { useSocket } from "@/hooks/use-socket";
-import { ExecutionPhase } from "@prisma/client";
+import { WorkflowExecutionStatusEnum } from "@prisma/client";
 import { useEffect } from "react";
 
 type Props = {
-  onPhaseChanges: (phaseId: string, newData: Partial<ExecutionPhase>) => void;
+  onStatusChange: (status: WorkflowExecutionStatusEnum) => void;
 };
 
-export const useExecutionProgress = ({}: Props) => {
+export const useExecutionProgress = ({ onStatusChange }: Props) => {
   const { socket, loading } = useSocket();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export const useExecutionProgress = ({}: Props) => {
       alert("Cannot connect to socket");
     }
 
-    socket?.on("phase_updated", (data) => {});
+    socket?.on("executionStatus", onStatusChange);
   }, [socket, loading]);
 
   return {};

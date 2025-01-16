@@ -2,16 +2,16 @@
 
 import { useServerUser } from "@/features/(auth)/lib/useServerUser";
 import db from "@/lib/db";
-import { ExecutionPhase, Workflow, WorkflowExecution } from "@prisma/client";
+import { ExecutionStep, Workflow, WorkflowExecution } from "@prisma/client";
 
-export type ExecutionWithPhases = WorkflowExecution & {
-  phases: ExecutionPhase[];
+export type ExecutionWithSteps = WorkflowExecution & {
+  steps: ExecutionStep[];
   workflow: Workflow;
 };
 
 export async function getExecutionDetails(
   executionId: string
-): Promise<ExecutionWithPhases> {
+): Promise<ExecutionWithSteps> {
   try {
     if (!executionId) throw new Error("Data is missing");
 
@@ -19,7 +19,7 @@ export async function getExecutionDetails(
 
     if (!user) throw new Error("Unauthorized");
 
-    const executionWithPhases = await db.workflowExecution.findFirst({
+    const executionWithSteps = await db.workflowExecution.findFirst({
       where: {
         id: executionId,
         workflow: {
@@ -27,14 +27,14 @@ export async function getExecutionDetails(
         },
       },
       include: {
-        phases: true,
+        steps: true,
         workflow: true,
       },
     });
 
-    if (!executionWithPhases) throw new Error("Cannot get execution details");
+    if (!executionWithSteps) throw new Error("Cannot get execution details");
 
-    return executionWithPhases as ExecutionWithPhases;
+    return executionWithSteps as ExecutionWithSteps;
   } catch (err: any) {
     throw new Error(err.message);
   }
