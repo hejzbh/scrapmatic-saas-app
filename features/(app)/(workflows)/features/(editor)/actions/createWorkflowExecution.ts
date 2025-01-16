@@ -32,7 +32,6 @@ export async function createWorkflowExecution(
       data: {
         workflowId,
         userId: session.user.sub,
-        trigger: WorkflowExecutionTriggerEnum.MANUAL,
         status: WorkflowExecutionStatusEnum.PENDING,
         steps: {
           create: executionPlan.steps.map((step) => {
