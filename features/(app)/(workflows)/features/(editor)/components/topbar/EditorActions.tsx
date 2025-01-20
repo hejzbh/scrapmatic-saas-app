@@ -29,6 +29,7 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
   });
   const { availableCredits } = useUserBalance();
   const router = useRouter();
+
   function handlePlay() {
     // Indicate the play operation is in progress
     setPending((loadings) => ({ ...loadings, handlePlay: true }));
