@@ -3,7 +3,7 @@ import Title from "@/components/ui/Title";
 import Badge from "@/components/ui/Badge";
 import { PiCoinsLight } from "react-icons/pi";
 
-import { FlowNode, FlowNodeTaskObject } from "@/types/flow-nodes";
+import { FlowNodeTaskObject } from "@/types/flow-nodes";
 import Dropdown from "@/components/ui/DropdownMenu";
 import { useReactFlow } from "@xyflow/react";
 import { createNode } from "../actions/createNode";
@@ -34,8 +34,8 @@ const NodeHeader = ({
       {/** Badges & Drag handler */}
       <div className="flex items-center space-x-2">
         {task.isEntryPoint && <Badge>Entry point</Badge>}
-        <Badge>
-          <PiCoinsLight className="text-xl" /> {task.credits}
+        <Badge className="!bg-credits">
+          <PiCoinsLight className="text-xl text-white" /> {task.credits}
         </Badge>
         {/**        <button title="Drag" className="node-drag-handler">
           <FaRegHandPaper

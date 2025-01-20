@@ -10,6 +10,7 @@ export type ButtonProps = {
   variant: "primary" | "secondary" | "empty";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
+  download?: string;
   href?: string;
   type?: "submit" | "button";
   dataTitle?: string;
@@ -51,12 +52,13 @@ const Button = ({
   href,
   modal,
   loading,
+  download,
   type = "button",
   textSize = "md",
 }: ButtonProps) => {
   const { openModal } = useModals();
 
-  const Element = href ? Link : "button";
+  const Element = download ? "a" : href ? Link : "button";
 
   const handleClick = (
     e:
@@ -69,6 +71,7 @@ const Button = ({
 
   return (
     <Element
+      download={download}
       ref={ref}
       href={href || "/"}
       type={type}

@@ -19,6 +19,7 @@ export default {
     extend: {
       colors: {
         primary: "#6155c8",
+        credits: "#22C55E",
         btnColors: {
           primary: "var(--btn-primary)",
           secondary: "var(--btn-secondary)",

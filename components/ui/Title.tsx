@@ -10,7 +10,7 @@ type TitleProps = {
 
 const fontSizesClasses = {
   xs: "text-[.85rem] md:text-[1rem] lg:text-[1.1rem]",
-  sm: "text-[1.25rem] md:text-[1.4375rem] lg:text-[1.5rem]",
+  sm: "text-[1.1rem] md:text-[1.2375rem] lg:text-[1.35rem]",
   md: "text-[1.675rem] md:text-[1.8375rem] lg:text-[2rem]",
   lg: "text-[1.875rem] md:text-[2.4375rem] lg:text-[2.875rem]",
   xl: "text-[2.125rem] md:text-[2.9125rem] lg:text-[4.7rem]",

@@ -1,5 +1,5 @@
 "use client";
-import { Workflow } from "@prisma/client";
+import { Workflow, WorkflowStatusEnum } from "@prisma/client";
 import React from "react";
 import Text from "@/components/ui/Text";
 import WorkflowStatusBadge from "./WorkflowStatusBadge";
@@ -8,7 +8,7 @@ import Dropdown from "@/components/ui/DropdownMenu";
 import Link from "next/link";
 import { useModals } from "@/hooks/use-modals";
 import { routes } from "@/lib/routes";
-import { useClientUser } from "@/features/(auth)/lib/useClientUser";
+import { useRouter } from "next/navigation";
 
 type WorkflowCardProps = {
   className?: string;
@@ -17,7 +17,7 @@ type WorkflowCardProps = {
 
 const WorkflowCard = ({ className = "", workflow }: WorkflowCardProps) => {
   const { openModal } = useModals();
-  const x = useClientUser();
+  const router = useRouter();
 
   return (
     <Link
@@ -37,6 +37,15 @@ const WorkflowCard = ({ className = "", workflow }: WorkflowCardProps) => {
           <Dropdown
             className="dropdown"
             options={[
+              ...(workflow.status === WorkflowStatusEnum.PUBLISHED
+                ? [
+                    {
+                      name: "View Executions",
+                      onClick: () =>
+                        router.push(routes.app.workflowExecutions(workflow.id)),
+                    },
+                  ]
+                : []),
               {
                 name: "Edit",
                 onClick: () => {

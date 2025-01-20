@@ -17,10 +17,10 @@ const Header = ({ className = "" }: HeaderProps) => {
       <div className="p-5 h-[90px] flex items-center justify-between">
         <Breadcrumb className="hidden lg:flex" />
         <Logo className="block lg:hidden" />
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 items-center">
           {" "}
           <ThemeToggler />
-          <LogoutButton />
+          <LogoutButton className="hidden lg:block" />
           <HamburgerButton className="block lg:hidden">
             <Sidebar />
           </HamburgerButton>

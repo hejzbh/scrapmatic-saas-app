@@ -18,6 +18,13 @@ export type AuthUserType = {
   stripeCustomerId: string;
   id: string;
   sid: string;
+
+  balance?: {
+    availableCredits: number;
+    id: string;
+    lastLoadedPackId: string;
+    userId: string;
+  };
 };
 
 export type PaginationObjectType = {

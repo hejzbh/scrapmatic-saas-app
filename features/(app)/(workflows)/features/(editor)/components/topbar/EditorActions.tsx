@@ -10,6 +10,8 @@ import { useGenerateExecution } from "../../hooks/use-generate-execution";
 import { createWorkflowExecution } from "../../actions/createWorkflowExecution";
 import { useRouter } from "next/navigation";
 import { routes } from "@/lib/routes";
+import { WorkflowStatusEnum } from "@prisma/client";
+import { useUserBalance } from "@/hooks/use-user-balance";
 
 interface EditorActionsProps {
   className?: string;
@@ -25,7 +27,7 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
     handlePlay: false,
     handlePublish: false,
   });
-
+  const { availableCredits } = useUserBalance();
   const router = useRouter();
   function handlePlay() {
     // Indicate the play operation is in progress
@@ -40,8 +42,14 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
         if (executionPlan.steps.length < 2)
           throw new Error("Please add at least two tasks to your workflow");
 
+        // Check does user have enough credits to run this execution
+        if (availableCredits < executionPlan.creditsCost) {
+          throw new Error("Insufficient credits to run this workflow");
+        }
+
         // Save the workflow data before execution
         handleSave({ showToast: false });
+        handlePublish({ showToast: false });
 
         // Run the workflow with the generated execution plan
         return createWorkflowExecution(workflowId, executionPlan);
@@ -89,7 +97,28 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
       });
   }
 
-  function handlePublish() {}
+  function handlePublish(params?: { showToast?: boolean }) {
+    // Prevent publish operation if already in progress
+    if (pending.handlePublish) return;
+
+    // Indicate the handle operation is in progress
+    setPending((loadings) => ({ ...loadings, handlePublish: true }));
+
+    editWorkflow(workflowId, { status: WorkflowStatusEnum.PUBLISHED })
+      .then(() => {
+        // Optionally show a success message
+        if (!params?.showToast) return;
+        addToast("You've successfully published workflow", "success");
+      })
+      .catch((err) => {
+        // Handle errors during the publish operation
+        addToast(err.message, "error");
+      })
+      .finally(() => {
+        // Reset the publish operation state
+        setPending((loadings) => ({ ...loadings, handlePublish: false }));
+      });
+  }
 
   return (
     <div className={`flex items-center space-x-5 ${className}`}>
@@ -104,7 +133,7 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
         Play
       </Button>
       <Button
-        onClick={() => handleSave()}
+        onClick={() => handleSave({ showToast: true })}
         variant="secondary"
         disabled={pending.handleSave}
         className="flex items-center"
@@ -112,7 +141,12 @@ const EditorActions = ({ className = "", workflowId }: EditorActionsProps) => {
       >
         <IoSaveOutline className="text-xl mr-2 text-success" /> Save
       </Button>
-      <Button onClick={handlePublish} variant="primary">
+      <Button
+        onClick={() => handlePublish({ showToast: true })}
+        disabled={pending.handlePublish}
+        loading={pending.handlePublish}
+        variant="primary"
+      >
         Publish
       </Button>
     </div>
