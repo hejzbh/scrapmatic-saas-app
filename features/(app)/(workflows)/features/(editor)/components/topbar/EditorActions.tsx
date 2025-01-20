@@ -11,7 +11,7 @@ import { createWorkflowExecution } from "../../actions/createWorkflowExecution";
 import { useRouter } from "next/navigation";
 import { routes } from "@/lib/routes";
 import { WorkflowStatusEnum } from "@prisma/client";
-import { useUserBalance } from "@/hooks/use-user-balance";
+import { useUserBalance } from "@/features/(app)/(balance)/hooks/use-user-balance";
 
 interface EditorActionsProps {
   className?: string;

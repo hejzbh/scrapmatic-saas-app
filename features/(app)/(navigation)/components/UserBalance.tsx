@@ -1,6 +1,6 @@
 "use client";
 import { useClientUser } from "@/features/(auth)/lib/useClientUser";
-import { useUserBalance } from "@/hooks/use-user-balance";
+import { useUserBalance } from "@/features/(app)/(balance)/hooks/use-user-balance";
 import React, { useEffect } from "react";
 import { PiCoinsLight } from "react-icons/pi";
 import Badge from "@/components/ui/Badge";

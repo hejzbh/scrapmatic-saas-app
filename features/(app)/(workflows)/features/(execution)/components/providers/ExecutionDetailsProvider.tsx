@@ -10,7 +10,7 @@ import { ExecutionWithSteps } from "../../actions/getExecutionDetails";
 import { ExecutionStep, WorkflowExecutionStatusEnum } from "@prisma/client";
 import { startWorkflowExecution } from "../../actions/startWorkflowExecution";
 import { useExecutionProgress } from "../../hooks/use-execution-progress";
-import { useUserBalance } from "@/hooks/use-user-balance";
+import { useUserBalance } from "@/features/(app)/(balance)/hooks/use-user-balance";
 import useToats from "@/hooks/use-toats";
 
 // Kreiramo kontekst
