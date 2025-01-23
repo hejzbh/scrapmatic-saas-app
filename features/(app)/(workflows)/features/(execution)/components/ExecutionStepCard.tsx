@@ -32,7 +32,7 @@ const ExecutionStepCard = ({
     () => (step.outputResults ? JSON.parse(step.outputResults) : {}),
     [step.outputResults]
   );
-  console.log(outputResults);
+
   if (!task) return null;
 
   return (
@@ -62,13 +62,10 @@ const ExecutionStepCard = ({
       {/** Inputs & Outputs */}
       <AccordionContent className="!p-0">
         <Separator />
-        <div className="p-4 md:p-10 bg-black/20">
-          <Text size="sm" className="mb-4 !text-textColors-label">
-            OUTPUTS:
-          </Text>
+        <div className="p-4 md:p-10 bg-bgColors-primary">
           {step.status === ExecutionStepStatusEnum.FAILED ? (
             <Text>Error happened. All your credits will be returned.</Text>
-          ) : step.status === ExecutionStepStatusEnum.RUNNNING ? (
+          ) : step.status === ExecutionStepStatusEnum.RUNNING ? (
             <Loader />
           ) : (
             <div className="space-y-4">

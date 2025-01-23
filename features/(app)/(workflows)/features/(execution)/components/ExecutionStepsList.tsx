@@ -9,12 +9,12 @@ type Props = {
 
 const ExecutionStepsList = ({ className = "" }: Props) => {
   const { steps } = useExecutionDetails();
-  console.log(steps);
+
   return (
     <Accordion
       defaultValue={[steps[0]?.id]}
       type="multiple"
-      className="space-y-10"
+      className={`space-y-10 ${className}`}
     >
       {steps?.map((step) => (
         <ExecutionStepCard key={step.id} step={step} />

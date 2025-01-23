@@ -3,8 +3,8 @@ import { useClientUser } from "@/features/(auth)/lib/useClientUser";
 import { useUserBalance } from "@/features/(app)/(balance)/hooks/use-user-balance";
 import React, { useEffect } from "react";
 import { PiCoinsLight } from "react-icons/pi";
-import Badge from "@/components/ui/Badge";
 import Text from "@/components/ui/Text";
+
 const UserBalance = () => {
   const { availableCredits, loadCredits, areCreditsLoaded } = useUserBalance();
   const user = useClientUser();

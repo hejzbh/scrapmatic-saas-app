@@ -47,8 +47,8 @@ model WorkflowExecution {
   steps ExecutionStep[]
   
   createdAt DateTime @default(now())
-  startedAt DateTime?
-  completedAt DateTime? 
+  startedAt String?
+  completedAt String? 
 }
 
 model ExecutionStep {
@@ -60,8 +60,8 @@ model ExecutionStep {
   outputResults String? 
   workflowExecutionId String?  @db.ObjectId
   execution WorkflowExecution? @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
-  startedAt DateTime?
-  completedAt DateTime?
+  startedAt String?
+  completedAt String?
 
 }
 
@@ -83,7 +83,7 @@ enum WorkflowStatusEnum {
 
 enum WorkflowExecutionStatusEnum {
   PENDING
-  RUNNNING
+  RUNNING
   COMPLETED 
   FAILED
 }
@@ -91,7 +91,7 @@ enum WorkflowExecutionStatusEnum {
 enum ExecutionStepStatusEnum {
   CREATED
   PENDING
-  RUNNNING
+  RUNNING
   COMPLETED 
   FAILED
 }

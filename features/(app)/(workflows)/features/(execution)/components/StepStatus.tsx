@@ -1,12 +1,16 @@
 "use client";
 import Loader from "@/components/ui/Loader";
-import { ExecutionStep, ExecutionStepStatusEnum } from "@prisma/client";
+import {
+  ExecutionStep,
+  ExecutionStepStatusEnum,
+  WorkflowExecutionStatusEnum,
+} from "@prisma/client";
 import React from "react";
 import { FaRegClock, FaCheckCircle } from "react-icons/fa";
 import { IoCreateOutline, IoCloseCircle } from "react-icons/io5";
 
 type Props = {
-  status: ExecutionStep["status"];
+  status: ExecutionStep["status"] | WorkflowExecutionStatusEnum;
 };
 
 const StepStatus = ({ status }: Props) => {
@@ -23,7 +27,7 @@ const StepStatus = ({ status }: Props) => {
           <FaRegClock className="text-2xl text-[#db9d00]" />
         </div>
       );
-    case ExecutionStepStatusEnum.RUNNNING:
+    case ExecutionStepStatusEnum.RUNNING:
       return (
         <div>
           <Loader />

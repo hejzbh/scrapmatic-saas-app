@@ -41,7 +41,7 @@
     --bg-muted: #0b1121;
     --bg-node: #0c0a09;
     --bg-sidebar: linear-gradient(145deg, #030710, #060c1a, #10142d);
-    --bg-body: linear-gradient(145deg, #030710, #060c1a, #10142d);
+    --bg-body: linear-gradient(145deg, #020b13, #060c1a, #10142d);
     --bg-modal: linear-gradient(#6155c829, #6155c800 60%);
     /* BORDER */
     --border-primary: #313069b9;
@@ -68,8 +68,16 @@ html {
 .heading-clip {
   color: transparent;
   -webkit-text-fill-color: transparent;
-  background-image: radial-gradient(circle at 0 0, #e6e0fc, #e6e0fc3d);
+  background-image: radial-gradient(circle at 0 0, #6155c8, #e6e0fc3d);
   background-clip: text;
+}
+
+html[class~="dark"] .heading-clip {
+  background-image: radial-gradient(
+    circle at 0 0,
+    #e6e0fc,
+    #e6e0fc3d
+  ) !important;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {

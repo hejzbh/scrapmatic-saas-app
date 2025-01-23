@@ -4,7 +4,6 @@ import Title from "@/components/ui/Title";
 import Text from "@/components/ui/Text";
 import Button from "@/components/ui/Button";
 import { routes } from "@/lib/routes";
-import Link from "next/link";
 
 type HeroProps = {
   className?: string;

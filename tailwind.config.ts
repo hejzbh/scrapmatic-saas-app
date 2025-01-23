@@ -47,7 +47,7 @@ export default {
         },
         danger: "#FF6B6B",
         success: "#4CAF50",
-        info: "yellow",
+        info: "#5BC0DE",
       },
       screens: {
         "2k": "1930px",

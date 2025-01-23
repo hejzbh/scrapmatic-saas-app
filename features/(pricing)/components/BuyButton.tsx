@@ -1,15 +1,26 @@
 "use client";
+import Button from "@/components/ui/Button";
+import { useClientUser } from "@/features/(auth)/lib/useClientUser";
 import { buy } from "@/lib/stripe";
 import React from "react";
 
-const BuyButton = ({ price }: { price: { id: string } }) => {
+const BuyButton = ({
+  price,
+  className = "",
+}: {
+  price: { id: string };
+  className?: string;
+}) => {
+  const user = useClientUser();
+  if (!user) return null;
   return (
-    <button
+    <Button
       onClick={() => buy(price.id)}
-      className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      variant="primary"
+      className={`!w-full !max-w-full ${className}`}
     >
-      Buy
-    </button>
+      Choose
+    </Button>
   );
 };
 

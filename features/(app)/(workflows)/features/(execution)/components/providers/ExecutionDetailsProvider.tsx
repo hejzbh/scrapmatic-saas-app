@@ -1,4 +1,5 @@
 "use client";
+
 import React, {
   createContext,
   useEffect,
@@ -12,13 +13,22 @@ import { startWorkflowExecution } from "../../actions/startWorkflowExecution";
 import { useExecutionProgress } from "../../hooks/use-execution-progress";
 import { useUserBalance } from "@/features/(app)/(balance)/hooks/use-user-balance";
 import useToats from "@/hooks/use-toats";
+import { calculateDuration } from "../../lib/utils";
 
-// Kreiramo kontekst
+// Create a context for execution details
 export const ExecutionDetailsContext = createContext<
-  { steps: ExecutionStep[] } | undefined
+  | {
+      steps: ExecutionStep[];
+      creditsCost: number;
+      startedAt: string;
+      completedAt: string;
+      duration: string;
+      status: WorkflowExecutionStatusEnum;
+    }
+  | undefined
 >(undefined);
 
-// Provider komponenta koja omogućava pristup kontekstu
+// Context provider for execution details
 export const ExecutionDetailsProvider = ({
   children,
   execution,
@@ -30,20 +40,39 @@ export const ExecutionDetailsProvider = ({
   const [status, setStatus] = useState<WorkflowExecutionStatusEnum>(
     execution.status
   );
+  const [duration, setDuration] = useState<string>("");
+  const [startedAt, setStartedAt] = useState<string | null>(
+    execution?.startedAt
+  );
+  const [completedAt, setCompletedAt] = useState<string | null>(
+    execution?.completedAt
+  );
+
+  const mounted = useRef(false); // Tracks if the component has mounted
   const { chargeCredits } = useUserBalance();
-  const mounted = useRef(false);
   const { addToast } = useToats();
 
+  // Track execution progress and update state accordingly
   useExecutionProgress({
     onStatusChange: setStatus,
     onStepChange: (updatedStep) =>
-      setSteps((steps) =>
-        steps.map((step) =>
+      setSteps((prevSteps) =>
+        prevSteps.map((step) =>
           step.id === updatedStep.id ? { ...step, ...updatedStep } : step
         )
       ),
+    onCompleted: setCompletedAt,
+    onStarted: setStartedAt,
   });
 
+  // Update the duration when both start and completion times are available
+  useEffect(() => {
+    if (startedAt && completedAt) {
+      setDuration(calculateDuration(startedAt, completedAt));
+    }
+  }, [startedAt, completedAt]);
+
+  // Handle initialization and pending execution status
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
@@ -52,20 +81,28 @@ export const ExecutionDetailsProvider = ({
     }
 
     if (status === WorkflowExecutionStatusEnum.PENDING) {
-      setStatus(WorkflowExecutionStatusEnum.RUNNNING);
+      setStatus(WorkflowExecutionStatusEnum.RUNNING);
       startWorkflowExecution(execution.id)
         .then(() => {
-          // If execution is successfully executed, charge credits.
-          chargeCredits(execution.creditsCost);
+          chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
         })
         .catch((error) => {
-          addToast(error.message, "error");
+          addToast(error.message, "error"); // Display an error toast if execution fails
         });
     }
-  }, [execution?.id]);
+  }, [execution?.id, status, chargeCredits, addToast]);
 
   return (
-    <ExecutionDetailsContext.Provider value={{ steps }}>
+    <ExecutionDetailsContext.Provider
+      value={{
+        steps,
+        status,
+        creditsCost: execution?.creditsCost,
+        startedAt: startedAt || "",
+        completedAt: completedAt || "",
+        duration,
+      }}
+    >
       {children}
     </ExecutionDetailsContext.Provider>
   );
