@@ -87,7 +87,7 @@ export const ExecutionDetailsProvider = ({
           chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
         })
         .catch((error) => {
-          addToast(error.message, "error"); // Display an error toast if execution fails
+          addToast(error.message, "error", 10000); // Display an error toast if execution fails
         });
     }
   }, [execution?.id, status, chargeCredits, addToast]);
