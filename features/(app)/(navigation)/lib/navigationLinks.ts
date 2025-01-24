@@ -2,7 +2,6 @@ import { NavigationLinkType } from "@/types/global";
 import { routes } from "@/lib/routes";
 import { IoHomeOutline } from "react-icons/io5";
 import { GoWorkflow } from "react-icons/go";
-import { SiFusionauth } from "react-icons/si";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 export const navigationLinks: NavigationLinkType[] = [
@@ -18,7 +17,7 @@ export const navigationLinks: NavigationLinkType[] = [
   },
   {
     name: "Pricing",
-    href: routes.app.billing,
+    href: routes.app.pricing,
     Icon: FaRegMoneyBillAlt,
   },
 ];

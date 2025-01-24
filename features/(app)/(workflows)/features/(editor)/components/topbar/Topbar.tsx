@@ -25,10 +25,10 @@ const Topbar = ({
 
   return (
     <div
-      className={`sticky top-0 left-0 w-full min-h-[60px] flex items-center justify-between drop-shadow-sm py-4 px-6 border-b-[1px] z-10 border-borderColors-primary bg-sidebarGradient rounded-xl ${className}`}
+      className={`sticky top-0 left-0 w-full min-h-[60px] flex items-center flex-col md:flex-row gap-3 justify-between drop-shadow-sm py-4 px-6 border-b-[1px] z-10 border-borderColors-primary bg-sidebarGradient rounded-xl ${className}`}
     >
       {/** Back & Title */}
-      <div className="flex  items-center space-x-5">
+      <div className="flex  items-center space-x-5 w-full">
         <Button
           onClick={() => {
             const isSure = window.confirm(

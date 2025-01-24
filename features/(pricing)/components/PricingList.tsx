@@ -6,7 +6,7 @@ import Text from "@/components/ui/Text";
 import Title from "@/components/ui/Title";
 import Separator from "@/components/ui/Separator";
 
-async function fetchProducts() {
+async function fetchProducts(skipFree?: boolean) {
   const products = await stripe.products.list({
     expand: ["data.default_price"],
     active: true,
@@ -21,16 +21,19 @@ async function fetchProducts() {
       default_price: product.default_price as { id: string },
       metadata: product.metadata,
     }))
-    .sort((a, b) => a.price - b.price);
+    .sort((a, b) => a.price - b.price)
+    .slice(skipFree ? 1 : 0);
 }
 
 // Server komponenta za izlistavanje proizvoda
 export default async function PricingList({
   className = "",
+  skipFree,
 }: {
   className?: string;
+  skipFree?: boolean;
 }) {
-  const products = await fetchProducts();
+  const products = await fetchProducts(skipFree);
 
   return (
     <div className={`!py-20 ${className}`}>
