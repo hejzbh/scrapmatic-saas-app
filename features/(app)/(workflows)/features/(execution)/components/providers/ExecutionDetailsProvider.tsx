@@ -54,6 +54,16 @@ export const ExecutionDetailsProvider = ({
 
   // Track execution progress and update state accordingly
   useExecutionProgress({
+    onSocketConnected: () => {
+      console.log("runna");
+      startWorkflowExecution(execution.id)
+        .then(() => {
+          chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
+        })
+        .catch((error) => {
+          addToast(error.message, "error", 10000); // Display an error toast if execution fails
+        });
+    },
     onStatusChange: setStatus,
     onStepChange: (updatedStep) =>
       setSteps((prevSteps) =>
@@ -74,23 +84,8 @@ export const ExecutionDetailsProvider = ({
 
   // Handle initialization and pending execution status
   useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      setSteps(execution.steps);
-      return;
-    }
-
-    if (status === WorkflowExecutionStatusEnum.PENDING) {
-      setStatus(WorkflowExecutionStatusEnum.RUNNING);
-      startWorkflowExecution(execution.id)
-        .then(() => {
-          chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
-        })
-        .catch((error) => {
-          addToast(error.message, "error", 10000); // Display an error toast if execution fails
-        });
-    }
-  }, [execution?.id, status, chargeCredits, addToast]);
+    setSteps(execution?.steps || []);
+  }, [execution?.steps]);
 
   return (
     <ExecutionDetailsContext.Provider

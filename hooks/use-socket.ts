@@ -1,62 +1,26 @@
-"use client";
-import { useEffect, useState } from "react";
-import { Socket } from "socket.io-client";
-import { io } from "socket.io-client";
-
-const MAX_RETRIES = 5;
+import { useState, useEffect } from "react";
+import { io, Socket } from "socket.io-client";
 
 export const useSocket = () => {
-  const [socket, setSocket] = useState<Socket | null>(null);
-  const [retries, setRetries] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
+  const [socket, setSocket] = useState<Socket>();
 
   useEffect(() => {
-    const socketIo = io(process.env.NEXT_PUBLIC_SERVER_URL, {
-      autoConnect: false,
-      reconnectionDelayMax: 5000,
-    });
+    const socketInstance = io(process.env.NEXT_PUBLIC_SERVER_URL);
 
-    setSocket(socketIo);
-
-    const interval = setInterval(() => {
-      if (!socket?.connected && retries < MAX_RETRIES) {
-        console.log("Trying to connect...");
-        socketIo.connect();
-      }
-    }, 1000);
-
-    socketIo.on("connect", () => {
-      console.log("Connected to WebSocket");
-      setRetries(0);
+    socketInstance.on("connect", () => {
       setLoading(false);
-      clearInterval(interval);
     });
 
-    socketIo.on("connect_error", (error) => {
-      console.log("Connection failed", error);
-      if (retries < MAX_RETRIES) {
-        setRetries((prev) => prev + 1);
-      } else {
-        console.log("Max retries reached. Stopping further attempts.");
-        setLoading(false);
-        clearInterval(interval);
-      }
-    });
+    setSocket(socketInstance);
 
-    socketIo.on("disconnect", () => {
-      console.log("Disconnected from WebSocket");
-    });
-
-    // Cleanup
+    // Cleanup on unmount
     return () => {
-      clearInterval(interval);
-      setLoading(false);
-      if (socketIo) {
-        socketIo.disconnect();
-        console.log("Disconnected from WebSocket");
-      }
+      socketInstance.disconnect();
     };
-  }, [retries]);
+  }, []);
 
-  return { socket, loading };
+  return { loading, socket };
 };
+
+export default useSocket;

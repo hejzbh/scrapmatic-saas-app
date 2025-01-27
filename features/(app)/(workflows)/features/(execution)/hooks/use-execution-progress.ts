@@ -12,6 +12,7 @@ type Props = {
   onStepChange: (data: { id: string; status: ExecutionStepStatusEnum }) => void;
   onCompleted: (completedAtDateString: string) => void;
   onStarted: (startedAtDateString: string) => void;
+  onSocketConnected: () => void;
 };
 
 export const useExecutionProgress = ({
@@ -19,17 +20,23 @@ export const useExecutionProgress = ({
   onStepChange,
   onCompleted,
   onStarted,
+  onSocketConnected,
 }: Props) => {
   const { socket, loading } = useSocket();
 
   useEffect(() => {
     if (loading) return;
 
-    if (!socket) {
+    if (!socket?.connected) {
       alert("Cannot connect to socket");
     }
 
-    socket?.on("executionStatus", onStatusChange);
+    onSocketConnected();
+
+    socket?.on("executionStatus", (status: any) => {
+      console.log(status);
+      console.log("✅✅✅✅✅✅✅✅✅");
+    });
     socket?.on("STEP_UPDATE", onStepChange);
     socket?.on("COMPLETED_AT", onCompleted);
     socket?.on("STARTED_AT", onStarted);
