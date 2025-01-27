@@ -11,6 +11,8 @@ export const useSocket = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    if (socket?.connected) return;
+
     const socketIo = io(process.env.NEXT_PUBLIC_SERVER_URL, {
       autoConnect: false,
       reconnectionDelayMax: 5000,
