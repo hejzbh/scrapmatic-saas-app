@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  createContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { ExecutionWithSteps } from "../../actions/getExecutionDetails";
 import { ExecutionStep, WorkflowExecutionStatusEnum } from "@prisma/client";
 import { startWorkflowExecution } from "../../actions/startWorkflowExecution";
@@ -48,21 +42,22 @@ export const ExecutionDetailsProvider = ({
     execution?.completedAt
   );
 
-  const mounted = useRef(false); // Tracks if the component has mounted
   const { chargeCredits } = useUserBalance();
   const { addToast } = useToats();
 
   // Track execution progress and update state accordingly
   useExecutionProgress({
     onSocketConnected: () => {
-      console.log("runna");
-      startWorkflowExecution(execution.id)
-        .then(() => {
-          chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
-        })
-        .catch((error) => {
-          addToast(error.message, "error", 10000); // Display an error toast if execution fails
-        });
+      if (status === WorkflowExecutionStatusEnum.PENDING) {
+        setStatus(WorkflowExecutionStatusEnum.RUNNING);
+        startWorkflowExecution(execution.id)
+          .then(() => {
+            chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
+          })
+          .catch((error) => {
+            addToast(error.message, "error", 10000); // Display an error toast if execution fails
+          });
+      }
     },
     onStatusChange: setStatus,
     onStepChange: (updatedStep) =>
