@@ -35,7 +35,7 @@ export const useExecutionProgress = ({
 
     socket?.on("executionStatus", (status: any) => {
       console.log(status);
-      console.log("✅✅✅✅✅✅✅✅✅");
+      console.log("---✅✅✅✅✅✅✅✅✅");
     });
     socket?.on("STEP_UPDATE", onStepChange);
     socket?.on("COMPLETED_AT", onCompleted);
