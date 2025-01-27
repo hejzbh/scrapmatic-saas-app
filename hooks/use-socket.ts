@@ -1,53 +1,62 @@
-import { useState, useEffect, useCallback } from "react";
-import { io, Socket } from "socket.io-client";
+"use client";
+import { useEffect, useState } from "react";
+import { Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
-const MAX_RETRIES = 7;
-const RETRY_DELAY = 1000; // Delay in milliseconds between retries
+const MAX_RETRIES = 5;
 
 export const useSocket = () => {
-  const [loading, setLoading] = useState(true);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [retries, setRetries] = useState(0);
+  const [retries, setRetries] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const connectSocket = useCallback(() => {
-    const socketInstance = io(process.env.NEXT_PUBLIC_SERVER_URL);
-
-    socketInstance.on("connect", () => {
-      setLoading(false);
-      setRetries(0); // Reset retries on successful connection
-      setSocket(socketInstance);
+  useEffect(() => {
+    const socketIo = io(process.env.NEXT_PUBLIC_SERVER_URL, {
+      autoConnect: false,
+      reconnectionDelayMax: 5000,
     });
 
-    socketInstance.on("connect_error", () => {
+    setSocket(socketIo);
+
+    const interval = setInterval(() => {
+      if (!socket?.connected && retries < MAX_RETRIES) {
+        console.log("Trying to connect...");
+        socketIo.connect();
+      }
+    }, 1000);
+
+    socketIo.on("connect", () => {
+      console.log("Connected to WebSocket");
+      setRetries(0);
+      setLoading(false);
+      clearInterval(interval);
+    });
+
+    socketIo.on("connect_error", (error) => {
+      console.log("Connection failed", error);
       if (retries < MAX_RETRIES) {
         setRetries((prev) => prev + 1);
-        setTimeout(() => {
-          connectSocket();
-        }, RETRY_DELAY);
       } else {
-        console.error("Max retries reached. Unable to connect to socket.");
-        setLoading(false); // Stop loading if max retries are reached
+        console.log("Max retries reached. Stopping further attempts.");
+        setLoading(false);
+        clearInterval(interval);
       }
     });
 
-    // Cleanup on unmount
+    socketIo.on("disconnect", () => {
+      console.log("Disconnected from WebSocket");
+    });
+
+    // Cleanup
     return () => {
-      socketInstance.disconnect();
+      clearInterval(interval);
+      setLoading(false);
+      if (socketIo) {
+        socketIo.disconnect();
+        console.log("Disconnected from WebSocket");
+      }
     };
   }, [retries]);
 
-  useEffect(() => {
-    connectSocket();
-
-    // Cleanup on component unmount
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
-  }, [connectSocket, socket]);
-
-  return { loading, socket };
+  return { socket, loading };
 };
-
-export default useSocket;
