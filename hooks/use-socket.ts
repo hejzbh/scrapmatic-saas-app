@@ -52,7 +52,7 @@ export const useSocket = () => {
     // Cleanup
     return () => {
       clearInterval(interval);
-      setLoading(false);
+      setLoading(true);
       if (socketIo) {
         socketIo.disconnect();
         console.log("Disconnected from WebSocket");
