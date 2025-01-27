@@ -25,8 +25,6 @@ export async function startWorkflowExecution(executionId: string) {
 
     return data;
   } catch (err: any) {
-    console.log(err.message);
-    console.log("👿👿👿👿👿");
     throw new Error(err.message);
   }
 }
