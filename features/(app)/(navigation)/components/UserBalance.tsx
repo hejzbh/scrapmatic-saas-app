@@ -23,7 +23,9 @@ const UserBalance = () => {
       </Text>
       <div className="flex items-center">
         <PiCoinsLight className="text-credits text-3xl mr-3" />
-        <Text className="!text-credits">{availableCredits}</Text>
+        <Text className="!text-credits">
+          {availableCredits ? availableCredits : "Just a moment..."}
+        </Text>
       </div>
     </div>
   );
