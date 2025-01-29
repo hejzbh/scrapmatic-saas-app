@@ -1,7 +1,10 @@
 "use client";
 
-import React, { createContext, useEffect, useState } from "react";
-import { ExecutionWithSteps } from "../../actions/getExecutionDetails";
+import React, { createContext, useEffect, useRef, useState } from "react";
+import {
+  ExecutionWithSteps,
+  getExecutionDetails,
+} from "../../actions/getExecutionDetails";
 import { ExecutionStep, WorkflowExecutionStatusEnum } from "@prisma/client";
 import { startWorkflowExecution } from "../../actions/startWorkflowExecution";
 import { useExecutionProgress } from "../../hooks/use-execution-progress";
@@ -41,24 +44,13 @@ export const ExecutionDetailsProvider = ({
   const [completedAt, setCompletedAt] = useState<string | null>(
     execution?.completedAt
   );
+  const mounted: any = useRef(null);
 
   const { chargeCredits } = useUserBalance();
   const { addToast } = useToats();
 
   // Track execution progress and update state accordingly
-  useExecutionProgress({
-    onSocketConnected: () => {
-      if (status === WorkflowExecutionStatusEnum.PENDING) {
-        setStatus(WorkflowExecutionStatusEnum.RUNNING);
-        startWorkflowExecution(execution.id)
-          .then(() => {
-            chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
-          })
-          .catch((error) => {
-            addToast(error.message, "error", 10000); // Display an error toast if execution fails
-          });
-      }
-    },
+  const { isConnectedOnSocket } = useExecutionProgress({
     onStatusChange: setStatus,
     onStepChange: (updatedStep) =>
       setSteps((prevSteps) =>
@@ -79,8 +71,33 @@ export const ExecutionDetailsProvider = ({
 
   // Handle initialization and pending execution status
   useEffect(() => {
-    setSteps(execution?.steps || []);
-  }, [execution?.steps]);
+    if (!mounted.current) {
+      mounted.current = true;
+      setSteps(execution?.steps || []);
+      return;
+    }
+
+    if (status === WorkflowExecutionStatusEnum.PENDING) {
+      setStatus(WorkflowExecutionStatusEnum.RUNNING);
+      startWorkflowExecution(execution.id)
+        .then(() => {
+          chargeCredits(execution.creditsCost); // Deduct credits upon successful execution
+
+          // If there was error with socket and user didnt get real time updates from backend
+          if (!isConnectedOnSocket) {
+            getExecutionDetails(execution.id).then((execution) => {
+              setSteps(execution.steps);
+              setStartedAt(execution.startedAt);
+              setCompletedAt(execution.completedAt);
+              setStatus(execution.status);
+            });
+          }
+        })
+        .catch((error) => {
+          addToast(error.message, "error", 10000); // Display an error toast if execution fails
+        });
+    }
+  }, [execution?.id]);
 
   return (
     <ExecutionDetailsContext.Provider

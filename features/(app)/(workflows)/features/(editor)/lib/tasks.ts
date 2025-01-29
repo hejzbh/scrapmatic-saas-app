@@ -28,7 +28,7 @@ export const LAUNCH_BROWSER_TASK: FlowNodeTaskObject = {
       label: "Website URL",
       name: "websiteUrl",
       type: TaskParamEnum.STRING,
-      helperText: "eg: https://www.google.com",
+      helperText: "eg: https://www.webranch.team",
       placeholder: "Enter website url here",
       hideHandle: true,
       required: true,
