@@ -74,7 +74,6 @@ export const ExecutionDetailsProvider = ({
     if (!mounted.current) {
       mounted.current = true;
       setSteps(execution?.steps || []);
-      return;
     }
 
     if (status === WorkflowExecutionStatusEnum.PENDING) {
