@@ -33,7 +33,7 @@ export const buy = async function (priceId: string) {
   if (!user.stripeCustomerId) throw new Error("Not stripe customer");
 
   const session = await stripe.checkout.sessions.create({
-    success_url: window.origin + "/stripe/success",
+    success_url: window.origin + "/app",
     cancel_url: window.location.href,
     payment_method_types: ["card", "paypal"],
     line_items: [{ quantity: 1, price: priceId }],
