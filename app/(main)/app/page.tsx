@@ -14,8 +14,8 @@ const DashboardPage = () => {
         "www.webranch.team",
         "hazim-tulumovic.vercel.app",
         "www.wikipedia.org",
-      ]?.map((origin) => (
-        <Text>{origin}</Text>
+      ]?.map((origin, idx) => (
+        <Text key={idx}>{origin}</Text>
       ))}
     </div>
   );
