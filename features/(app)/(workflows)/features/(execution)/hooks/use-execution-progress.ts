@@ -27,16 +27,13 @@ export const useExecutionProgress = ({
   useEffect(() => {
     if (loading) return;
 
-    if (!socket?.connected) {
-      alert("Cannot connect to socket");
+    if (socket?.connected && socket.active) {
+      onSocketConnected();
+    } else {
+      console.log("Cannot connect to socket");
     }
 
-    onSocketConnected();
-
-    socket?.on("executionStatus", (status: any) => {
-      console.log(status);
-      console.log("---✅✅✅✅✅✅✅✅✅");
-    });
+    socket?.on("executionStatus", onStatusChange);
     socket?.on("STEP_UPDATE", onStepChange);
     socket?.on("COMPLETED_AT", onCompleted);
     socket?.on("STARTED_AT", onStarted);

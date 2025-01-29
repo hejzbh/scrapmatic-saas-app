@@ -15,7 +15,7 @@ export const useSocket = () => {
 
     const socketIo = io(process.env.NEXT_PUBLIC_SERVER_URL, {
       autoConnect: false,
-      reconnectionDelayMax: 5000,
+      reconnectionDelayMax: 10000,
     });
 
     setSocket(socketIo);
