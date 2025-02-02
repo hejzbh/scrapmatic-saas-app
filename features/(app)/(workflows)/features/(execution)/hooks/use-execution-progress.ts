@@ -26,7 +26,7 @@ export const useExecutionProgress = ({
     if (loading) return;
 
     if (!socket?.connected) {
-      console.log("Cannot connect to socket");
+      console.log("Cannot connect to socket :/");
     }
 
     socket?.on("executionStatus", onStatusChange);
