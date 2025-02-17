@@ -10,14 +10,11 @@ const DashboardPage = () => {
       <Text className="text-white mt-5">
         Allowed web origins to test scraping:
       </Text>
-      {[
-        "scrapmatic.vercel.app",
-        "www.webranch.team",
-        "hazim-tulumovic.vercel.app",
-        "www.wikipedia.org",
-      ]?.map((origin, idx) => (
-        <Text key={idx}>{origin}</Text>
-      ))}
+      {["scrapmatic.vercel.app", "www.webranch.team", "www.wikipedia.org"]?.map(
+        (origin, idx) => (
+          <Text key={idx}>{origin}</Text>
+        )
+      )}
 
       <div>
         <Text className="text-white mt-5 mb-1">
