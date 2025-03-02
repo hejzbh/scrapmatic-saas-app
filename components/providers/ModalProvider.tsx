@@ -1,23 +1,21 @@
 "use client";
 import { ModalName, useModals } from "@/hooks/use-modals";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React from "react";
 
-const modalComponents: Record<
-  ModalName,
-  React.LazyExoticComponent<() => React.JSX.Element>
-> = {
-  createWorkflow: React.lazy(
+const modalComponents: Record<ModalName, React.ComponentType> = {
+  createWorkflow: dynamic(
     () =>
       import(
         "@/features/(app)/(workflows)/components/modals/CreateWorkflowModal"
       )
   ),
-  editWorkflow: React.lazy(
+  editWorkflow: dynamic(
     () =>
       import("@/features/(app)/(workflows)/components/modals/EditWorkflowModal")
   ),
-  deleteWorkflow: React.lazy(
+  deleteWorkflow: dynamic(
     () =>
       import(
         "@/features/(app)/(workflows)/components/modals/DeleteWorkflowModal"
@@ -35,7 +33,7 @@ const ModalProvider = () => {
       className="fixed top-0 left-0 w-full h-full bg-[#020b13]/95 flex items-center justify-center"
       onClick={closeLastModal}
     >
-      {modals?.map((modal, i) => {
+      {modals.map((modal, i) => {
         const Modal = modalComponents[modal.name];
 
         return (
@@ -45,15 +43,13 @@ const ModalProvider = () => {
             key={modal.name}
             style={{ zIndex: i + 10 }}
           >
-            <Suspense>
-              <Modal />
-            </Suspense>
+            <Modal />
           </div>
         );
       })}
 
       <Image
-        src={"/images/reflection.avif"}
+        src="/images/reflection.avif"
         alt="Reflection"
         width={1920}
         height={300}
